@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c9e5d52-febb-48c8-874b-65c8bf388368" name="Changes" comment="" />
+    <list default="true" id="5c9e5d52-febb-48c8-874b-65c8bf388368" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-app/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-app/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-app/src/app/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/hci-app/src/app/app.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-app/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hci-app/src/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-app/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/hci-app/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-app/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/hci-app/src/styles.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +32,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JavaScript Debug.app.html.executor": "Run",
+    "Node.js.layout-module.ts.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
@@ -28,6 +42,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\almed\\HCI\\hci-app\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -46,7 +61,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1752915494756</updated>
-      <workItem from="1752915495701" duration="312000" />
+      <workItem from="1752915495701" duration="17039000" />
     </task>
     <servers />
   </component>

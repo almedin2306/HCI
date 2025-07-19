@@ -1,0 +1,228 @@
+/* src/app/home/home.component.css */
+.home-dashboard-container {
+    padding: 20px;
+}
+
+.home-dashboard-container h2 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Dashboard Cards Section */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.dashboard-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    /* CHANGE THIS: Vertically center the card-content within the card */
+    justify-content: center;
+    min-height: 120px;
+    background-color: #fff;
+}
+
+.dashboard-card .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    /* Remove any explicit height or margin that might prevent centering */
+}
+.card-content
+{
+padding-left: 10px;
+
+}
+
+.dashboard-card .card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dashboard-card .card-label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.dashboard-card .card-number {
+    font-size: 36px;
+    padding-top: 20px;
+    font-weight: 600;
+    color: #f97828;
+}
+
+.dashboard-card .card-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: rgba(249, 120, 40, 0.5);
+    align-self: flex-end;
+    transform: translateY(-5px);
+}
+
+/* Bottom Section */
+.dashboard-bottom-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding-top: 10px;
+}
+
+.activity-graph-card {
+    flex: 3;
+    min-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    padding-right: 30px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NEW/MODIFIED: Styles for the chart header to push dropdown to the right */
+.activity-graph-card .chart-header-custom {
+    display: flex;
+    justify-content: space-between; /* Pushes title to left, .header-right-controls to right */
+    align-items: center; /* Vertically aligns title and controls */
+    width: 100%;
+    margin-bottom: 15px;
+    padding-bottom: 0; /* Ensure no extra padding pushes content down */
+}
+
+.activity-graph-card .chart-header-custom .mat-card-title {
+    /* No specific changes, it's already a flex item */
+}
+
+.activity-graph-card .chart-header-custom .header-right-controls {
+    /* No specific styles, it's just a container for the dropdown */
+}
+
+.activity-graph-card .timeframe-select {
+    width: 150px;
+    /* Reset previous margin-top as align-items: center now handles alignment */
+    margin-top: 0;
+    /* Adjust font size for select if needed */
+    font-size: 14px;
+}
+
+/* Ensure the label and value within mat-form-field align correctly */
+.activity-graph-card .timeframe-select .mat-form-field-wrapper {
+    padding-bottom: 0 !important; /* Remove extra padding from Material's form field wrapper */
+}
+
+.activity-graph-card .chart-container {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+.active-volunteers-card {
+    flex: 1;
+    min-width: 340px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    padding-right: 20px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.active-volunteers-card .mat-card-header {
+    margin-bottom: 15px;
+}
+
+.active-volunteers-card .mat-card-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.volunteer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.volunteer-item {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 10px;
+}
+
+.volunteer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.volunteer-details {
+    flex-grow: 1;
+}
+
+.volunteer-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.volunteer-email {
+    font-size: 13px;
+    color: #777;
+}
+
+.volunteer-time {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f97828;
+    flex-shrink: 0;
+}
+
+.active-volunteers-card .active-list-header-custom {
+    display: flex;
+    justify-content: space-between; /* Pushes title to left, dropdown to right */
+    align-items: center; /* Vertically aligns title and dropdown */
+    width: 100%;
+    margin-bottom: 15px;
+    padding-bottom: 0;
+}
+
+.active-volunteers-card .active-list-header-custom .mat-card-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.active-volunteers-card .active-list-select {
+    width: 150px; /* Adjust width as needed */
+    font-size: 14px;
+    margin-top: 0;
+}
+
+/* Ensure the label and value within mat-form-field align correctly */
+.active-volunteers-card .active-list-select .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+}
+
+/* You might want to adjust the .volunteer-email style to be more general if it holds "actions" */
+.volunteer-email {
+    font-size: 13px;
+    color: #777;
+    /* If you want to differentiate action text, you might use a separate class */
+}
+
+

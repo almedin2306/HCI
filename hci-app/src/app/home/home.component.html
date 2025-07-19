@@ -1,0 +1,94 @@
+<div class="home-dashboard-container">
+    <h1 style="padding-bottom: 20px;">Dobrodošli Tarik</h1>
+
+    <div class="dashboard-cards">
+        <mat-card class="dashboard-card">
+            <div class="card-content">
+                <div class="card-info">
+                    <div class="card-label">Organizacije</div>
+                    <div class="card-number">{{ dashboardData.organizations }}</div>
+                </div>
+                <mat-icon class="card-icon">account_balance</mat-icon>
+            </div>
+        </mat-card>
+
+        <mat-card class="dashboard-card">
+            <div class="card-content">
+                <div class="card-info">
+                    <div class="card-label">Volonteri</div>
+                    <div class="card-number">{{ dashboardData.volunteers }}</div>
+                </div>
+                <mat-icon class="card-icon">person</mat-icon>
+            </div>
+        </mat-card>
+
+        <mat-card class="dashboard-card">
+            <div class="card-content">
+                <div class="card-info">
+                    <div class="card-label">Događaji</div>
+                    <div class="card-number">{{ dashboardData.events }}</div>
+                </div>
+                <mat-icon class="card-icon">flash_on</mat-icon>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="dashboard-bottom-section">
+        <mat-card class="activity-graph-card">
+            <mat-card-header class="chart-header-custom">
+                <mat-card-title>Aktivnost volontera</mat-card-title>
+                <div class="header-right-controls">
+                    <mat-form-field appearance="fill" class="timeframe-select">
+                        <mat-label>Vremenski period</mat-label>
+                        <mat-select [(ngModel)]="selectedTimeframe" (selectionChange)="onTimeframeChange()">
+                            <mat-option *ngFor="let option of timeframeOptions" [value]="option.value">
+                                {{ option.viewValue }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </mat-card-header>
+            <mat-card-content class="chart-container">
+                <canvas #volunteerChart></canvas>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="active-volunteers-card">
+            <mat-card-header class="active-list-header-custom">
+                <mat-card-title>{{ selectedActiveList === 'volunteers' ? 'Najaktivniji' : 'Najaktivnije     (događaji)' }}</mat-card-title>
+                <div class="header-right-controls">
+                    <mat-form-field appearance="fill" class="active-list-select" style="padding-right: 15px;">
+                        <mat-label>Prikaži</mat-label>
+                        <mat-select [(ngModel)]="selectedActiveList" (selectionChange)="onActiveListChange()">
+                            <mat-option *ngFor="let option of activeListOptions" [value]="option.value">
+                                {{ option.viewValue }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </mat-card-header>
+            <mat-card-content class="volunteer-list">
+                <div *ngIf="selectedActiveList === 'volunteers'">
+                    <div *ngFor="let volunteer of activeVolunteers" class="volunteer-item">
+                        <img [src]="volunteer.avatar" alt="{{ volunteer.name }}" class="volunteer-avatar">
+                        <div class="volunteer-details">
+                            <div class="volunteer-name">{{ volunteer.name }}</div>
+                            <div class="volunteer-email">{{ volunteer.email }}</div>
+                        </div>
+                        <div class="volunteer-time">{{ volunteer.time }}</div>
+                    </div>
+                </div>
+
+                <div *ngIf="selectedActiveList === 'organizations'">
+                    <div *ngFor="let org of activeOrganizations" class="volunteer-item"> <img [src]="org.logo" alt="{{ org.name }} logo" class="volunteer-avatar"> <div class="volunteer-details">
+                        <div class="volunteer-name">{{ org.name }}</div>
+                        <div class="volunteer-email">{{ org.email }}</div> </div>
+                        <div class="volunteer-time">{{ org.actions }}</div>
+                    </div>
+
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

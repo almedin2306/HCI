@@ -1,0 +1,183 @@
+/* Overall Layout Container */
+.full-height-layout-container {
+  display: flex; /* Makes it a flex container */
+  height: 100vh; /* Takes full viewport height */
+  overflow: hidden; /* Ensures no scrollbars on the main container itself */
+}
+
+/* Custom Left Sidebar Styling */
+.custom-sidebar {
+  width: 220px; /* Fixed width */
+  background-color: #f97828; /* Orange background */
+  color: white; /* White text */
+  display: flex; /* Enable Flexbox */
+  flex-direction: column; /* Stack children vertically */
+  flex-shrink: 0; /* Prevents sidebar from shrinking */
+}
+.logo-sidebar {
+  padding: 20px;
+  /* CHANGE THIS: Align logo text to the left */
+  text-align: left;
+  /* Add left padding to align with nav items if needed, e.g. */
+  padding-left: 25px; /* Adjust this to match your desired indentation */
+  font-size: 35px;
+  font-weight: bold;
+  font-family: 'Audiowide', cursive; /* Apply the Audiowide font */
+}
+
+/* ... (existing CSS between .logo-sidebar and .main-nav-list) ... */
+
+/* ... (existing CSS above .main-nav-list) ... */
+
+.main-nav-list {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0;
+  padding-left: 25px; /* Existing left padding */
+  padding-right: 25px; /* ADD THIS: 15px space on the right side */
+  margin: 0;
+  margin-top: 100px;
+  list-style: none;
+  gap: 10px;
+}
+
+/* Styling for individual navigation links (the <a> tag) */
+.nav-item {
+  color: white; /* Text color */
+  text-decoration: none; /* Remove underline */
+  display: flex; /* Makes the <a> a flex container */
+  align-items: center; /* Vertically centers content within the <a> */
+  justify-content: flex-start; /* Aligns content to the left within the <a> */
+  width: 100%; /* Ensure <a> takes full width of its parent (.main-nav-list) */
+  box-sizing: border-box; /* Include padding in width calculation */
+
+  /* MOVE PADDING HERE: This padding will now define the space around the content inside the full-width hover background */
+  padding: 10px 15px; /* Top/bottom 10px, left/right 15px */
+
+  transition: background-color 0.2s ease-in-out, border-radius 0.2s ease-in-out; /* Smooth transition for both */
+
+  /* NEW: Default border-radius for non-hover/active state (usually 0 or slight) */
+  border-radius: 0; /* Start with square corners */
+}
+
+/* Hover state applied directly to the <a> tag */
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.15); /* Slight white overlay on hover */
+  border-radius: 20px; /* Rounded corners for the entire <a> on hover */
+}
+
+
+
+/* Styling for the content wrapper (icon + text) within the link */
+.nav-item-content {
+  display: flex; /* Enable flexbox for icon and text alignment */
+  align-items: center; /* Vertically center icon and text */
+  /* REMOVE PADDING FROM HERE: It's now on .nav-item */
+  padding: 0;
+  /* REMOVE BORDER-RADIUS FROM HERE: It's now on .nav-item */
+  border-radius: 0;
+  /* REMOVE TRANSITION FROM HERE: It's now on .nav-item */
+  transition: none;
+  flex-grow: 0; /* Keep sizing as needed */
+  flex-shrink: 0;
+  /* Ensure no background on nav-item-content itself */
+  background-color: transparent !important; /* Force transparent */
+}
+
+/* Precise vertical alignment for the icon */
+.nav-item-content mat-icon {
+  margin-right: 12px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  transform: translateY(2px); /* Nudge the icon down visually */
+}
+
+/* Styling for the text span */
+.nav-item-content span {
+  flex-grow: 1;
+  transform: translateY(3px); /* Move the text 5px down */
+}
+
+.bottom-nav-list {
+  padding-bottom: 16px;
+  margin: 0;
+  list-style: none;
+  padding-left: 25px; /* Existing left padding */
+  padding-right: 25px; /* ADD THIS: 15px space on the right side for the bottom list */
+}
+
+/* ... (rest of your CSS) ... */
+
+/* Styling for the nav-item inside bottom-nav-list */
+.bottom-nav-list .nav-item {
+  /* Inherits styles from .nav-item */
+}
+
+/* Styling for the nav-item-content inside bottom-nav-list */
+.bottom-nav-list .nav-item-content {
+  /* Inherits styles from .nav-item-content */
+}
+
+
+/* Main Content Wrapper Styling */
+.main-content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Bar / Header Styling */
+.topbar {
+  height: 64px;
+  background-color: #f97828;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.topbar-logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.topbar-right-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.topbar-right-section button {
+  color: white;
+}
+
+.profile-pic {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+/* Main Content Area Styling */
+.main-content-area {
+  padding: 20px;
+  background-color: #fef1df;
+  flex-grow: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.nav-item.active-link {
+  background-color: rgba(255, 255, 255, 0.25); /* Stronger background for active link */
+  font-weight: 575; /* Semi-bold for active link text */
+  border-radius: 20px; /* Rounded corners for the entire <a> when active */
+}
+
+
