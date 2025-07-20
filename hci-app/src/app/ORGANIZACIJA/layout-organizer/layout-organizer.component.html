@@ -1,0 +1,61 @@
+<div class="full-height-layout-container">
+  <aside class="custom-sidebar">
+    <div class="logo-sidebar">ALTRUO</div>
+
+    <nav class="main-nav-list">
+      <a class="nav-item" routerLink="/organization/home" routerLinkActive="active-link">
+        <div class="nav-item-content"> <mat-icon>home</mat-icon>
+          <span>Početna</span>
+        </div>
+      </a>
+      <a class="nav-item" routerLink="/organization/organizations" routerLinkActive="active-link">
+        <div class="nav-item-content">
+          <mat-icon>account_balance</mat-icon>
+          <span>Organizacije</span>
+        </div>
+      </a>
+      <a class="nav-item" routerLink="/organization/volunteers" routerLinkActive="active-link">
+        <div class="nav-item-content">
+          <mat-icon>person</mat-icon>
+          <span>Volonteri</span>
+        </div>
+      </a>
+      <a class="nav-item" routerLink="/organization/events" routerLinkActive="active-link">
+        <div class="nav-item-content">
+          <mat-icon>flash_on</mat-icon>
+          <span>Događaji</span>
+        </div>
+      </a>
+      <a class="nav-item" routerLink="/organization/admin" routerLinkActive="active-link">
+        <div class="nav-item-content">
+          <mat-icon>build</mat-icon>
+          <span>Administracija</span>
+        </div>
+      </a>
+    </nav>
+
+    <nav class="bottom-nav-list">
+      <a class="nav-item" routerLink="/organization/settings" routerLinkActive="active-link">
+        <div class="nav-item-content">
+          <mat-icon>settings</mat-icon>
+          <span>Podešavanja</span>
+        </div>
+      </a>
+    </nav>
+  </aside>
+
+  <div class="main-content-wrapper">
+    <header class="topbar">
+      <div class="topbar-logo"></div> <div class="topbar-right-section">
+      <button mat-icon-button aria-label="Notifications">
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" class="profile-pic" alt="Profile">
+    </div>
+    </header>
+
+    <main class="main-content-area">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
