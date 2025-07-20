@@ -2,3 +2,24 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.success-snackbar {
+  background-color: #4CAF50 !important; /* Green background */
+  color: white !important;
+}
+
+.error-snackbar {
+  background-color: #f44336 !important; /* Red background */
+  color: white !important;
+}
+
+.info-snackbar {
+  background-color: #2196F3 !important; /* Blue background */
+  color: white !important;
+}
+
+/* Ensure text and close button color within snackbar */
+.mat-simple-snackbar-action {
+  color: white !important;
+}

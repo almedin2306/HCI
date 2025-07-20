@@ -1,0 +1,290 @@
+/* General styles (keep these as they were) */
+.search-container {
+  margin-top: 20px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sub-email {
+  font-size: 12px;
+  color: gray;
+}
+
+.badge {
+  font-weight: 600;
+}
+
+.green { /* Odobreno color, used for Moderator */
+  background-color: #cdffcc;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #017f01;
+}
+
+.orange { /* Na čekanju color, used for Podrška */
+  background-color: #ffeccc;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #ce8600;
+}
+
+.red { /* Odbijeno color, used for Admin */
+  background-color: #fee0e0;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #d20000;
+}
+
+.active {
+  background-color: #d5d5ed;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #4a4bfe;
+}
+
+.inactive {
+  background-color: #f1d6d6;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #e53935;
+}
+
+.link {
+  color: #3f51b5;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+table {
+  width: 100%;
+}
+
+.filter-search-bar {
+  display: flex;
+  gap: 1rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  align-items: baseline;
+}
+
+.filter-button {
+  flex: 0 0 5%;
+  border-radius: 10px;
+  transform: translateY(7px);
+}
+.filter-button mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  transform: translateY(2px);
+}
+
+.search-field {
+  flex: 1;
+}
+.search-field button {
+  padding-right: 6px;
+  margin-right: 16px;
+  padding-top: 5px;
+}
+
+.zebra-table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+.zebra-table tr:nth-child(odd) td {
+  background-color: #ffffff;
+}
+
+.filter-menu {
+  padding: 12px 16px;
+  width: 240px;
+}
+
+.filter-section {
+  margin-bottom: 12px;
+}
+
+.filter-title {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: #6c6c6c;
+}
+
+.filter-radio {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Styles for the organization actions menu and its items (reused for administration) */
+/* ------------------------------------------------------------------ */
+
+/* Control the overall menu panel width - applies to all action menus */
+.organization-actions-menu.mat-menu-panel,
+.administration-actions-menu.mat-menu-panel { /* Added administration-actions-menu */
+  min-width: 200px !important;
+  box-sizing: border-box;
+}
+
+/* Ensure the mat-menu-content itself is padded - applies to all action menus */
+.organization-actions-menu .mat-menu-content,
+.administration-actions-menu .mat-menu-content { /* Added administration-actions-menu */
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Styling for mat-menu-item as a button - applies to all action menus */
+.organization-actions-menu button.mat-menu-item,
+.administration-actions-menu button.mat-menu-item { /* Added administration-actions-menu */
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: initial;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+/* Hover state for mat-menu-item - applies to all action menus */
+.organization-actions-menu button.mat-menu-item:hover,
+.administration-actions-menu button.mat-menu-item:hover { /* Added administration-actions-menu */
+  background-color: #f5f5f5;
+}
+
+.menu-section-title {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #6c6c6c;
+  padding: 8px 16px 4px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Specific padding for the "KORISNIK" section title */
+.user-section-title {
+  padding: 5px 10px 0px 15px !important;
+  margin-top: 0 !important;
+}
+
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Styles for the radio button and its content within the menu item */
+.status-radio-button {
+  width: auto;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  margin: 0 !important;
+}
+
+/* Hide the default radio circle */
+.hidden-radio-dot .mat-radio-outer-circle {
+  display: none !important;
+}
+.hidden-radio-dot .mat-radio-inner-circle {
+  display: none !important;
+}
+.hidden-radio-dot .mat-radio-ripple {
+  display: none !important;
+}
+.hidden-radio-dot .mat-radio-container {
+  display: none !important;
+}
+
+/* Ensure the mat-radio-label-content contains the dot and text */
+.status-radio-button .mat-radio-label-content {
+  display: flex;
+  align-items: center;
+  padding: 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Text color for status options to match their dots */
+.status-radio-button .green-dot + span {
+  color: #017f01;
+}
+.status-radio-button .red-dot + span {
+  color: #d20000;
+}
+.status-radio-button .orange-dot + span {
+  color: #ce8600;
+}
+
+/* Style for the checkmark icon */
+.checked-icon {
+  margin-left: 8px;
+  color: #4CAF50;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Delete button specific styles in the menu */
+.delete-button {
+  color: #F44336;
+  font-weight: 500;
+}
+
+.delete-button mat-icon {
+  margin-left: auto;
+  color: #F44336;
+}
+
+/* Dividers in menus */
+.organization-actions-menu .mat-divider,
+.administration-actions-menu .mat-divider { /* Added administration-actions-menu */
+  margin: 8px 0;
+}
+
+.filter-search-bar mat-icon {
+  transform: translateX(5px);
+}
+
+.search-field mat-icon{
+  transform: translateY(4px);
+}
+
+/* New style for the "Dodaj" button */
+.dodaj-button {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 56px;
+  transform: translateY(7px);
+  margin-left: 1rem;
+}
+
+/* Shared Search button style */
+.search-button {
+  background-color: #3f51b5; /* Blue */
+  color: white;
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 56px;
+  transform: translateY(7px);
+  margin-left: 1rem;
+}

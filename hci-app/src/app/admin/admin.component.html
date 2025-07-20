@@ -1,1 +1,142 @@
-<p>admin works!</p>
+<mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
+  <mat-tab label="SVE"></mat-tab>
+  <mat-tab label="ADMIN"></mat-tab>
+  <mat-tab label="MODERATOR"></mat-tab>
+  <mat-tab label="PODRŠKA"></mat-tab>
+</mat-tab-group>
+
+<div class="filter-search-bar">
+  <button mat-button color="warn" class="filter-button" [matMenuTriggerFor]="filterMenu">
+    <mat-icon>filter_alt</mat-icon>
+    <span>Filter</span>
+  </button>
+
+  <mat-menu #filterMenu="matMenu" class="filter-menu">
+    <div class="filter-section">
+      <div class="filter-title">SORTIRAJ PO:</div>
+      <mat-radio-group [(ngModel)]="selectedSort" (change)="applySort()">
+        <mat-radio-button class="filter-radio" value="newestRegistration">Najnovija registracija</mat-radio-button>
+        <mat-radio-button class="filter-radio" value="oldestRegistration">Najstarija registracija</mat-radio-button>
+        <mat-radio-button class="filter-radio" value="nameAsc">Ime (A-Z)</mat-radio-button>
+        <mat-radio-button class="filter-radio" value="nameDesc">Ime (Z-A)</mat-radio-button>
+        <mat-radio-button class="filter-radio" value="newestRoleChange">Najnovija promjena uloge</mat-radio-button>
+        <mat-radio-button class="filter-radio" value="oldestRoleChange">Najstarija promjena uloge</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="filter-section">
+      <div class="filter-title">AKTIVNOST:</div>
+      <mat-radio-group [(ngModel)]="selectedActivity" (change)="applyActivityFilter()">
+        <mat-radio-button class="filter-radio" value="Sve">Svi</mat-radio-button>
+        <mat-radio-button class="filter-radio" value="Aktivan">
+          <span class="status-radio-button hidden-radio-dot">
+             <span>Aktivan</span>
+          </span>
+        </mat-radio-button>
+        <mat-radio-button class="filter-radio" value="Neaktivan">
+          <span class="status-radio-button hidden-radio-dot">
+            <span>Neaktivan</span>
+          </span>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </mat-menu>
+
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Pretraži korisnika po imenu, emailu ili broju telefona</mat-label>
+    <input matInput [(ngModel)]="searchTerm" (input)="applySearch()">
+    <button mat-icon-button matSuffix disabled>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <button mat-button class="dodaj-button">
+    DODAJ
+  </button>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z1 zebra-table" matSort>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>NAZIV ORGANIZACIJE</th>
+    <td mat-cell *matCellDef="let user">
+      <div>{{ user.name }}</div>
+      <div class="sub-email">{{ user.email }}</div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="registrationDate">
+    <th mat-header-cell *matHeaderCellDef>REGISTRACIJA</th>
+    <td mat-cell *matCellDef="let user">
+      <span [ngClass]="user.activity === 'Aktivan' ? 'active' : 'inactive'">
+        ● {{ user.activity }}
+      </span><br />
+      {{ user.registrationDate | date: 'd/MMM/yyyy' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef style="padding-left:40px;">ULOGA</th>
+    <td mat-cell *matCellDef="let user">
+      <span class="badge" [ngClass]="getRoleClass(user.role)" style="margin-left: 12px;">● {{ user.role }}</span><br />
+      <div style="padding-left: 15px;"> {{ user.roleChangeDate | date: 'd/MMM/yyyy' }}</div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phoneNumber">
+    <th mat-header-cell *matHeaderCellDef style="padding-left:40px;">BROJ TELEFONA</th>
+    <td mat-cell *matCellDef="let user" style="padding-left:50px;">{{ user.phoneNumber }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user">
+      <a class="link">Vidi više</a>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="more">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user" style="width:20px;">
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" (click)="$event.stopPropagation()">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu" class="organization-actions-menu">
+
+        <div class="menu-section-title">PROMIJENI ULOGU</div>
+        <button mat-menu-item (click)="onRoleChangeRequest(user, 'Admin')">
+          <mat-radio-button [checked]="user.role === 'Admin'" class="status-radio-button">
+            <span class="red">● Admin</span>
+          </mat-radio-button>
+        </button>
+        <button mat-menu-item (click)="onRoleChangeRequest(user, 'Moderator')">
+          <mat-radio-button [checked]="user.role === 'Moderator'" class="status-radio-button">
+            <span class="green">● Moderator</span>
+          </mat-radio-button>
+        </button>
+        <button mat-menu-item (click)="onRoleChangeRequest(user, 'Podrška')">
+          <mat-radio-button [checked]="user.role === 'Podrška'" class="status-radio-button">
+            <span class="orange">● Podrška </span>
+          </mat-radio-button>
+        </button>
+        <mat-divider></mat-divider>
+
+        <div class="menu-section-title user-section-title">KORISNIK</div>
+        <button mat-menu-item class="delete-button" (click)="confirmDeleteUser(user)">
+          Izbriši korisnički nalog <mat-icon>delete_outline</mat-icon>
+        </button>
+      </mat-menu>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+</table>
+
+<mat-paginator [length]="dataSource.data.length"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 20]"
+               showFirstLastButtons>
+</mat-paginator>

@@ -1,0 +1,284 @@
+/* General styles - DO NOT MODIFY THESE unless explicitly requested */
+.search-container {
+  margin-top: 20px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sub-email {
+  font-size: 12px;
+  color: gray;
+}
+
+.badge {
+  font-weight: 600;
+}
+
+.green {
+  background-color: #cdffcc;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #017f01;
+}
+
+.orange {
+  background-color: #ffeccc;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #ce8600;
+}
+
+.red {
+  background-color: #fee0e0;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #d20000;
+}
+
+.active {
+  background-color: #d5d5ed;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #4a4bfe;
+}
+
+.inactive {
+  background-color: #f1d6d6;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #e53935;
+}
+
+.link {
+  color: #3f51b5;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+table {
+  width: 100%;
+}
+
+.filter-search-bar {
+  display: flex;
+  gap: 1rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  align-items: baseline;
+}
+
+.filter-button {
+  flex: 0 0 5%; /* This might make the button too narrow on smaller screens, consider 'auto' */
+  border-radius: 10px;
+  transform: translateY(7px);
+  display: flex; /* Added for icon alignment */
+  align-items: center; /* Added for icon alignment */
+  padding: 0 16px; /* Added for better padding */
+}
+.filter-button mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  transform: translateY(2px);
+  margin-right: 8px; /* Space between icon and text */
+}
+
+.search-field {
+  flex: 1;
+}
+.search-field button {
+  padding-right: 6px;
+  margin-right: 16px;
+  padding-top: 5px;
+}
+
+.zebra-table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+.zebra-table tr:nth-child(odd) td {
+  background-color: #ffffff;
+}
+
+.filter-menu {
+  padding: 12px 16px; /* Standard padding for the filter dropdown */
+  width: 240px;
+}
+
+.filter-section {
+  margin-bottom: 12px;
+}
+
+.filter-title {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: #6c6c6c;
+}
+
+.filter-radio {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Styles for ALL action menus (organizations, volunteers, events) */
+/* This is a more generalized approach. If you need specific differences
+   for each, you'll need separate class names like .organization-actions-menu
+   and .event-actions-menu with more specific overrides. */
+/* ------------------------------------------------------------------ */
+
+.organization-actions-menu.mat-menu-panel,
+.event-actions-menu.mat-menu-panel { /* Target both general and specific */
+  min-width: 200px !important;
+  box-sizing: border-box;
+}
+
+.organization-actions-menu .mat-menu-content,
+.event-actions-menu .mat-menu-content {
+  padding: 0 !important; /* Crucial: Remove ALL default padding */
+  overflow: hidden; /* Hide anything that spills over */
+  min-height: unset !important; /* Remove any default minimum height */
+  display: flex; /* Use flexbox to stack items tightly */
+  flex-direction: column; /* Stack them vertically */
+}
+
+/* Base style for all menu section titles within these action menus */
+.organization-actions-menu .menu-section-title,
+.event-actions-menu .menu-section-title {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #6c6c6c;
+  /* Control padding *around* the title to separate from edge and items */
+  /* This is the key change to match the provided screenshot */
+  padding: 5px 10px 0px 15px !important; /* Top, Right, Bottom, Left */
+  margin: 0 !important; /* Ensure no external margin on the title itself */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Specific adjustment for the "KORISNIK" title if it's the only section */
+/* This will prevent a top margin if it's the very first element */
+.event-actions-menu .user-section-title {
+  /* No additional padding-top needed here if covered by the above rule */
+  margin-top: 0 !important; /* Ensure no inherited margin */
+}
+
+
+/* Styling for all mat-menu-items that are buttons within these action menus */
+.organization-actions-menu button.mat-menu-item,
+.event-actions-menu button.mat-menu-item {
+  height: 40px !important; /* Fixed height for consistency */
+  line-height: 40px !important; /* Center text vertically */
+  font-size: 14px;
+  padding: 0 16px !important; /* Consistent horizontal padding */
+  margin: 0 !important; /* Crucial: Remove all default item margins */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Push icon to the right */
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: initial;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+/* Hover state for mat-menu-item */
+.organization-actions-menu button.mat-menu-item:hover,
+.event-actions-menu button.mat-menu-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* Status dots and radio button specific styles (from organizations/volunteers) */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-radio-button {
+  width: auto;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  margin: 0 !important;
+}
+
+.hidden-radio-dot .mat-radio-outer-circle,
+.hidden-radio-dot .mat-radio-inner-circle,
+.hidden-radio-dot .mat-radio-ripple,
+.hidden-radio-dot .mat-radio-container {
+  display: none !important;
+}
+
+.status-radio-button .mat-radio-label-content {
+  display: flex;
+  align-items: center;
+  padding: 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-radio-button .green-dot + span {
+  color: #017f01;
+}
+.status-radio-button .red-dot + span {
+  color: #d20000;
+}
+.status-radio-button .orange-dot + span {
+  color: #ce8600;
+}
+
+.checked-icon {
+  margin-left: 8px;
+  color: #4CAF50;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Delete button specific styles in the menu */
+.delete-button {
+  color: #F44336;
+  font-weight: 500;
+}
+
+.delete-button mat-icon {
+  margin-left: auto;
+  color: #F44336;
+}
+
+/* Divider style (if you use it, ensure it's not adding unwanted space) */
+.organization-actions-menu .mat-divider,
+.event-actions-menu .mat-divider {
+  margin: 8px 0 !important; /* Keep a small margin for separation */
+}
+
+/* Icon adjustments for search/filter bar */
+.filter-search-bar mat-icon {
+  transform: translateX(5px);
+}
+
+.search-field mat-icon {
+  transform: translateY(4px);
+}
+
+.search-button {
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 56px;
+  transform: translateY(7px);
+  margin-left: 1rem;
+}

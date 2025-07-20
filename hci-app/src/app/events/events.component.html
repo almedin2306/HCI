@@ -1,1 +1,102 @@
-<p>events works!</p>
+<mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
+  <mat-tab label="SVI DOGAĐAJI"></mat-tab>
+</mat-tab-group>
+
+<div class="filter-search-bar">
+  <button mat-button color="warn" class="filter-button" [matMenuTriggerFor]="filterMenu">
+    <mat-icon>filter_alt</mat-icon>
+    <span>Filter</span>
+  </button>
+
+  <mat-menu #filterMenu="matMenu" class="filter-menu">
+    <div class="filter-section">
+      <div class="filter-title">SORTIRAJ PO:</div>
+      <mat-radio-group [(ngModel)]="selectedSort" (change)="applySort()">
+        <mat-radio-button class="filter-radio" value="newestDate">Najnoviji datum</mat-radio-button>
+        <mat-radio-button class="filter-radio" value="oldestDate">Najstariji datum</mat-radio-button>
+        <mat-radio-button class="filter-radio" value="mostVolunteers">Najviše volontera</mat-radio-button>
+        <mat-radio-button class="filter-radio" value="leastVolunteers">Najmanje volontera</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="filter-section">
+      <div class="filter-title">STATUS DOGAĐAJA:</div> <mat-radio-group [(ngModel)]="selectedStatus" (change)="applyStatusFilter()">
+      <mat-radio-button class="filter-radio" value="Sve">Svi</mat-radio-button>
+      <mat-radio-button class="filter-radio" value="Upcoming">Predstojeći</mat-radio-button>
+      <mat-radio-button class="filter-radio" value="Completed">Završeni</mat-radio-button>
+    </mat-radio-group>
+    </div>
+  </mat-menu>
+
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Pretraži događaj po nazivu, mjestu, datumu, vremenu ili broju volontera</mat-label>
+    <input matInput [(ngModel)]="searchTerm" (input)="applySearch()">
+    <button mat-icon-button matSuffix disabled>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+
+</div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z1 zebra-table" matSort>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>NAZIV DOGAĐAJA</th>
+    <td mat-cell *matCellDef="let event">
+      <div>{{ event.name }}</div>
+      <div class="sub-email">{{ event.organizationName }}</div> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="location">
+    <th mat-header-cell *matHeaderCellDef style="padding-right: 40px;">MJESTO</th>
+    <td mat-cell *matCellDef="let event">
+      {{ event.location }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dateTime">
+    <th mat-header-cell *matHeaderCellDef style="padding-left: 40px;">DATUM I VRIJEME</th>
+    <td mat-cell *matCellDef="let event" style="padding-left: 55px;">
+      {{ event.dateTime | date: 'd/MMM/yyyy' }}<br />
+     <div style="padding-left: 15px;"> {{ event.dateTime | date: 'HH:mm' }}</div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="volunteerCount">
+    <th mat-header-cell *matHeaderCellDef>BROJ VOLONTERA</th>
+    <td mat-cell *matCellDef="let event" style="padding-left:50px;">{{ event.volunteerCount }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let event">
+      <a class="link">Vidi više</a>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="more">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let event" style="width:20px;">
+      <button mat-icon-button [matMenuTriggerFor]="eventMenu" (click)="$event.stopPropagation()">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #eventMenu="matMenu" class="event-actions-menu">
+        <div class="menu-section-title user-section-title" style="padding-left: 15px; padding-top:5px; padding-right: 10px;">DOGAĐAJ</div>
+        <button mat-menu-item class="delete-button" (click)="confirmDeleteEvent(event)">
+          Izbriši događaj <mat-icon>delete_outline</mat-icon>
+        </button>
+      </mat-menu>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+</table>
+
+<mat-paginator [length]="dataSource.data.length"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 20]"
+               showFirstLastButtons>
+</mat-paginator>

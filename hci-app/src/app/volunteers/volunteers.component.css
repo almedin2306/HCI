@@ -1,0 +1,338 @@
+/* General styles - Keep as they were for Organizations. */
+/* If you want specific styles for volunteers only, add them here. */
+
+.search-container {
+  margin-top: 20px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sub-email {
+  font-size: 12px;
+  color: gray;
+}
+
+.badge {
+  font-weight: 600;
+}
+
+/* Status colors (green, orange, red) might not be directly applicable if volunteers only have Active/Inactive.
+   Adjust these or remove if not used for volunteers. */
+.green {
+  background-color: #cdffcc;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #017f01;
+}
+
+.orange {
+  background-color: #ffeccc;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #ce8600;
+}
+
+.red {
+  background-color: #fee0e0;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #d20000;
+}
+
+/* These 'active' and 'inactive' styles are directly applicable to volunteers based on your image. */
+.active {
+  background-color: #d5d5ed;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #4a4bfe;
+}
+
+.inactive {
+  background-color: #f1d6d6;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: #e53935;
+}
+
+.link {
+  color: #3f51b5;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+table {
+  width: 100%;
+}
+
+.filter-search-bar {
+  display: flex;
+  gap: 1rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  align-items: baseline;
+}
+
+.filter-button {
+  flex: 0 0 auto; /* Changed from 5% to auto to accommodate text "Filter" */
+  border-radius: 10px;
+  transform: translateY(7px);
+  display: flex; /* Make it a flex container to align icon and text */
+  align-items: center;
+  padding: 0 16px; /* Adjust padding for the text */
+}
+.filter-button mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  transform: translateY(2px);
+  margin-right: 8px; /* Space between icon and text */
+}
+
+.search-field {
+  flex: 1;
+}
+.search-field button {
+  padding-right: 6px;
+  margin-right: 16px;
+  padding-top: 5px;
+}
+
+.zebra-table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+.zebra-table tr:nth-child(odd) td {
+  background-color: #ffffff;
+}
+
+.filter-menu {
+  padding: 12px 16px;
+  width: 240px;
+}
+
+.filter-section {
+  margin-bottom: 12px;
+}
+
+.filter-title {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: #6c6c6c;
+}
+
+.filter-radio {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* Styles for the volunteer actions menu (similar to organization) */
+.volunteer-actions-menu.mat-menu-panel {
+  min-width: 200px !important;
+  box-sizing: border-box;
+}
+
+.volunteer-actions-menu .mat-menu-content {
+  padding: 0;
+  overflow: hidden;
+}
+
+.volunteer-actions-menu button.mat-menu-item {
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: initial;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.volunteer-actions-menu button.mat-menu-item:hover {
+  background-color: #f5f5f5;
+}
+
+.menu-section-title {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #6c6c6c;
+  padding: 8px 16px 4px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.user-section-title {
+  margin-top: 8px;
+}
+
+.status-radio-button {
+  width: auto;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  margin: 0 !important;
+}
+
+.hidden-radio-dot .mat-radio-outer-circle {
+  display: none !important;
+}
+.hidden-radio-dot .mat-radio-inner-circle {
+  display: none !important;
+}
+.hidden-radio-dot .mat-radio-ripple {
+  display: none !important;
+}
+.hidden-radio-dot .mat-radio-container {
+  display: none !important;
+}
+
+.status-radio-button .mat-radio-label-content {
+  display: flex;
+  align-items: center;
+  padding: 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* These specific dot colors from Organizations might not apply directly unless you re-introduce similar statuses for volunteers.
+   The 'active' and 'inactive' classes are already defined and used. */
+.status-radio-button .green-dot + span {
+  color: #017f01;
+}
+.status-radio-button .red-dot + span {
+  color: #d20000;
+}
+.status-radio-button .orange-dot + span {
+  color: #ce8600;
+}
+
+.checked-icon {
+  margin-left: 8px;
+  color: #4CAF50;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.delete-button {
+  color: #F44336;
+  font-weight: 500;
+}
+
+.delete-button mat-icon {
+  margin-left: auto;
+  color: #F44336;
+}
+
+.volunteer-actions-menu .mat-divider {
+  margin: 8px 0;
+}
+
+/* Adjustments for the search and filter bar as seen in the volunteer image */
+.filter-search-bar mat-icon {
+  transform: translateX(5px);
+}
+
+.search-field mat-icon {
+  transform: translateY(4px);
+}
+
+.search-button {
+  background-color: #3f51b5; /* Example blue color, adjust as needed */
+  color: white;
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 56px; /* Match height of mat-form-field */
+  transform: translateY(7px);
+}
+
+/* All the styles from your organizations.component.css should be copied here.
+   I'm only listing the minor adjustments/additions for context. */
+
+/* Existing styles for .active, .inactive, .sub-email, .link, .zebra-table etc. are assumed to be copied */
+
+/* Adjustments for the filter button and search bar to match the volunteer image */
+.filter-search-bar {
+  display: flex;
+  gap: 1rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  align-items: baseline; /* Align items based on their text baseline */
+}
+
+.filter-button {
+  flex: 0 0 auto; /* Allow button to size based on content */
+  border-radius: 10px;
+  transform: translateY(7px);
+  display: flex; /* Enable flexbox for icon and text alignment */
+  align-items: center; /* Vertically center icon and text */
+  padding: 0 16px; /* Adjust padding if needed to match visual */
+}
+.filter-button mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  transform: translateY(2px);
+  margin-right: 8px; /* Space between icon and "Filter" text */
+}
+
+.search-field {
+  flex: 1; /* Allow search field to take remaining space */
+}
+
+.search-field button {
+  padding-right: 6px;
+  margin-right: 16px;
+  padding-top: 5px;
+}
+
+.search-button {
+  background-color: #3f51b5; /* Example blue color, adjust as needed */
+  color: white;
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 56px; /* Match the height of the mat-form-field */
+  transform: translateY(7px); /* Align with the filter button */
+  margin-left: 1rem; /* Space from search field */
+}
+
+/* Ensure the menu panels are consistent */
+.organization-actions-menu.mat-menu-panel { /* Reusing class name from organizations */
+  min-width: 200px !important;
+  box-sizing: border-box;
+}
+
+.organization-actions-menu .mat-menu-content {
+  padding: 0; !important
+  overflow: hidden;
+}
+
+/* Radio button styles within menu (green, red, orange) might need review if 'Active'/'Inactive' are the only statuses for volunteers.
+   The .active and .inactive classes are already defined and used. */
+
+.status-radio-button .active { /* Specific style for 'Aktivan' text within menu */
+  color: #4a4bfe; /* Color for active text */
+}
+
+.status-radio-button .inactive { /* Specific style for 'Neaktivan' text within menu */
+  color: #e53935; /* Color for inactive text */
+}
+
+/* Other styles like .menu-section-title, .delete-button, .hidden-radio-dot etc. are assumed to be copied directly. */
+
+.menu-section-title .user-section-title
+{
+  margin-top: 0;  !important
+  padding-top: 0;  !important
+}
