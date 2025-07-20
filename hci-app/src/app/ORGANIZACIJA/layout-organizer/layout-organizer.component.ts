@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-layout-organizer',
@@ -8,7 +9,8 @@ import {MatIcon} from '@angular/material/icon';
     MatIcon,
     RouterOutlet,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    MatIconButton
   ],
   templateUrl: './layout-organizer.component.html',
   standalone: true,
