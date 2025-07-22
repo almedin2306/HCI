@@ -1,0 +1,197 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f7f3ed;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+.container {
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: flex-start;
+  gap:30px;
+  align-items: center;
+  padding: 20px 0;
+  height: 150px;
+  /* background-color: lightblue; /* Za debug */
+}
+
+.weather-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #555;
+  height: 100%;
+  /* background-color: lightcoral; /* Za debug */
+}
+
+.weather-info .icon.prognoza {
+  font-size: 8em; /* Eksperimentirajte s ovom vrijednošću da dobijete željenu visinu ikone */
+  line-height: 1;
+}
+
+/* NOVI STILOVI ZA HEADER TEKSTOVE */
+header .time-date-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+header .time-date-group h1 {
+  font-size: 2.8em;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  line-height: 1.1;
+}
+
+header .time-date-group h2 {
+  font-size: 1.5em;
+  font-weight: 400;
+  color: #555;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.section-title {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.card-wrapper {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+}
+.card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 25%;
+  font-size: 14px;
+
+}
+
+.card-header {
+  position: relative;
+  height: 150px;
+  background: url(https://shorturl.at/IXOmx) no-repeat center/cover;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.date-badge {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #db7c00;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 5px 10px;
+  text-align: center;
+  width: 50px;
+}
+
+.date-badge span {
+  display: block;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.card-header p {
+  margin: 0;
+  font-size: 13px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-content p {
+  margin: 0;
+  font-size: 13px;
+  color: #777;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+.card-footer .info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.card-footer img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.card-footer button {
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.card-footer button:hover {
+  background-color: #e55340;
+}
+.buttons {
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons button {
+  background-color: #FA812F;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+
+.buttons button:hover {
+  opacity: 1;
+}
