@@ -37,7 +37,8 @@
         <mat-radio-button class="filter-radio" value="oldestReg">Najstarija registracija</mat-radio-button>
 
         <mat-radio-button class="filter-radio" value="newestReg">Najnovija registracija</mat-radio-button>
-
+        <mat-radio-button class="filter-radio" value="oldestStatus">Status (Najstarije)</mat-radio-button>
+        <mat-radio-button class="filter-radio" value="newestStatus">Status (Najnovije)</mat-radio-button>
       </mat-radio-group>
 
     </div>
@@ -160,7 +161,7 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let org">
-      <a class="link">Vidi više</a>
+      <button mat-button class="link view-more-button" (click)="viewOrganizationDetails(org)">Vidi više</button>
     </td>
   </ng-container>
 

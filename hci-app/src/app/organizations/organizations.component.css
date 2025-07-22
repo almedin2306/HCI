@@ -1,3 +1,5 @@
+/* src/app/organizations/organizations.component.css */
+
 /* General styles (keep these as they were) */
 .search-container {
   margin-top: 20px;
@@ -55,6 +57,23 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+/* NEW: Style for the "Vidi više" button to ensure it looks like a link but is a button */
+.view-more-button {
+  padding: 0;
+  min-width: unset;
+  line-height: normal;
+  height: auto;
+  text-decoration: underline;
+  color: #3f51b5; /* Inherit the link color */
+  background: none;
+  border: none;
+  font-size: inherit; /* Inherit font size from table cell */
+}
+.view-more-button:hover {
+  text-decoration: none; /* Remove underline on hover */
+}
+
 
 table {
   width: 100%;
@@ -259,4 +278,11 @@ table {
 
 .search-field mat-icon{
   transform: translateY(4px);
+}
+
+/* --- Dialog Panel Styling for Details (NEW) --- */
+.organization-details-dialog-panel {
+  border-radius: 15px !important;
+  padding: 0 !important; /* Remove default padding from dialog panel */
+  overflow: hidden; /* Ensure rounded corners are visible */
 }

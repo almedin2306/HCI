@@ -1,1 +1,246 @@
-<p>settings works!</p>
+<div class="settings-container">
+  <mat-tab-group [(selectedIndex)]="selectedTabIndex" mat-align-tabs="start">
+    <mat-tab label="Uređivanje profila"></mat-tab>
+    <mat-tab label="Preference"></mat-tab>
+    <mat-tab label="Sigurnost"></mat-tab>
+  </mat-tab-group>
+
+  <div class="tab-content">
+    <div *ngIf="selectedTabIndex === 0" class="profile-editing-tab">
+      <div class="profile-content-wrapper">
+        <div class="profile-picture-section">
+          <div class="profile-picture-and-button-wrapper">
+            <div class="profile-picture-container">
+              <img [src]="userProfile.profilePicture" alt="Profile Picture" class="profile-picture">
+            </div>
+            <button mat-mini-fab color="primary" class="edit-picture-button" (click)="onProfilePictureEdit()">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <form class="profile-form">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Ime</mat-label>
+              <input matInput [(ngModel)]="userProfile.firstName" name="firstName">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Prezime</mat-label>
+              <input matInput [(ngModel)]="userProfile.lastName" name="lastName">
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" [(ngModel)]="userProfile.email" name="email">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Korisničko ime</mat-label>
+              <input matInput [(ngModel)]="userProfile.username" name="username">
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Datum rođenja</mat-label>
+              <input matInput [matDatepicker]="dobPicker" [(ngModel)]="userProfile.dob" name="dob">
+              <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+              <mat-datepicker #dobPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Broj telefona</mat-label>
+              <input matInput type="tel" [(ngModel)]="userProfile.phoneNumber" name="phoneNumber">
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Država</mat-label>
+              <input matInput [(ngModel)]="userProfile.country" name="country">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Kanton</mat-label>
+              <input matInput [(ngModel)]="userProfile.canton" name="canton">
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Grad</mat-label>
+              <input matInput [(ngModel)]="userProfile.city" name="city">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Adresa</mat-label>
+              <input matInput [(ngModel)]="userProfile.address" name="address">
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+      <div class="form-actions">
+        <button mat-raised-button color="primary" class="save-button" (click)="onSaveProfile()">
+          Spasi
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="selectedTabIndex === 1" class="preference-tab">
+      <form class="preference-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Jezik</mat-label>
+            <mat-select [(ngModel)]="userPreferences.language" name="language">
+              <mat-option *ngFor="let lang of languages" [value]="lang">
+                {{ lang }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Format datuma i vremena</mat-label>
+            <mat-select [(ngModel)]="userPreferences.dateTimeFormat" name="dateTimeFormat">
+              <mat-option *ngFor="let format of dateTimeFormats" [value]="format">
+                {{ format }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <h3 class="section-title">Dodatne opcije</h3>
+        <div class="toggle-group">
+          <mat-slide-toggle [(ngModel)]="userPreferences.notificationsEnabled" name="notificationsEnabled">
+            Obavijesti
+          </mat-slide-toggle>
+
+          <mat-slide-toggle [(ngModel)]="userPreferences.receiveEmailNotifications" name="receiveEmailNotifications">
+            Primaj obavještenja putem emaila
+          </mat-slide-toggle>
+
+          <mat-slide-toggle [(ngModel)]="userPreferences.darkModeEnabled" name="darkModeEnabled">
+            Tamni način rada
+          </mat-slide-toggle>
+
+          <mat-slide-toggle [(ngModel)]="userPreferences.customDashboardEnabled" name="customDashboardEnabled">
+            Prilagođena kontrolna tabla
+          </mat-slide-toggle>
+        </div>
+      </form>
+      <div class="form-actions">
+        <button mat-raised-button color="primary" class="save-button" (click)="onSavePreferences()">
+          Spasi
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="selectedTabIndex === 2" class="security-tab">
+      <form class="security-form">
+        <mat-slide-toggle
+          [(ngModel)]="userPreferences.twoFactorAuthEnabled"
+          name="twoFactorAuthEnabled"
+          class="two-factor-toggle"
+        >
+          Omogućite ili onemogućite two-factor authentication
+        </mat-slide-toggle>
+
+        <h3 class="section-title">Lozinka</h3>
+        <button
+          mat-stroked-button
+          color="primary"
+          class="change-password-button"
+          (click)="togglePasswordFields()"
+        >
+          {{ showPasswordFields ? 'Odustani' : 'Promijeni lozinku' }}
+        </button>
+
+        <div *ngIf="showPasswordFields" class="password-fields-group">
+          <!-- CURRENT PASSWORD -->
+          <!-- CURRENT PASSWORD -->
+          <mat-form-field appearance="outline" class="form-field" [color]="currentPasswordTouched && currentPasswordInvalid ? 'warn' : undefined">
+            <mat-label>Trenutna lozinka</mat-label>
+            <input
+              matInput
+              type="password"
+              [(ngModel)]="currentPassword"
+              name="currentPassword"
+              (ngModelChange)="onCurrentPasswordChange()"
+              (blur)="currentPasswordTouched = true"
+              required
+            />
+            <mat-error *ngIf="currentPasswordTouched && currentPasswordInvalid">Netačna trenutna lozinka!</mat-error>
+          </mat-form-field>
+
+          <!-- NEW PASSWORD -->
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nova lozinka</mat-label>
+            <input
+              matInput
+              type="password"
+              [(ngModel)]="newPassword"
+              name="newPassword"
+              (ngModelChange)="onNewPasswordChange()"
+              [disabled]="!currentPasswordValid"
+              required
+            />
+            <mat-hint *ngIf="currentPasswordValid">
+              Lozinka mora imati najmanje 8 karaktera, velika/mala slova, broj i specijalni znak.
+            </mat-hint>
+          </mat-form-field>
+
+          <!-- PASSWORD STRENGTH -->
+          <div
+            class="password-strength"
+            [ngClass]="{
+    'strength-weak': newPasswordStrength === 'Slabo',
+    'strength-medium': newPasswordStrength === 'Srednje',
+    'strength-strong': newPasswordStrength === 'Jako'
+  }"
+            *ngIf="newPassword && currentPasswordValid"
+          >
+            Jačina lozinke: {{ newPasswordStrength }}
+          </div>
+
+          <!-- CONFIRM PASSWORD -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            [color]="confirmTouched && passwordMismatch ? 'warn' : undefined"
+          >
+            <mat-label>Potvrdi novu lozinku</mat-label>
+            <input
+              matInput
+              type="password"
+              [(ngModel)]="confirmNewPassword"
+              name="confirmNewPassword"
+              (ngModelChange)="onConfirmPasswordChange()"
+              (blur)="confirmTouched = true"
+              [disabled]="!currentPasswordValid"
+              required
+            />
+            <mat-error *ngIf="confirmTouched && passwordMismatch">Lozinke se ne podudaraju!</mat-error>
+          </mat-form-field>
+
+
+
+        </div>
+      </form>
+      <!-- SAVE BUTTON -->
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          class="save-button"
+          (click)="onSaveSecuritySettings()"
+          [disabled]="!canSavePassword()"
+        >
+          Spasi
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
