@@ -1,42 +1,46 @@
+/* Definiranje bazne veličine fonta za rem jedinice */
+html {
+  font-size: 16px; /* 1rem = 16px. Možete ovo prilagoditi ako želite drugačiju baznu veličinu */
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f7f3ed;
   margin: 0;
-  padding: 20px;
+  padding: 1.25rem; /* 20px -> 1.25rem */
   color: #333;
 }
 
 .container {
+  /* 1200px -> 75rem (1200 / 16) - Ostavljeno kako ste tražili */
   margin: 0 auto;
   display: grid;
-  gap: 20px;
+  /* gap: 1.25rem; -- Uklonjeno jer justify-content: space-evenly preuzima raspored */
 }
 
 header {
   display: flex;
-  justify-content: flex-start;
-  gap:30px;
+  justify-content: flex-start; /* Ostavljeno kako ste tražili */
+  gap: 1.875rem; /* 30px -> 1.875rem - Prilagođeno u rem */
   align-items: center;
-  padding: 20px 0;
-  height: 150px;
-  /* background-color: lightblue; /* Za debug */
+  padding: 1.25rem 0; /* 20px -> 1.25rem */
+  height: 9.375rem; /* 150px -> 9.375rem */
 }
 
 .weather-info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 0.9375rem; /* 15px -> 0.9375rem */
   color: #555;
   height: 100%;
-  /* background-color: lightcoral; /* Za debug */
 }
 
 .weather-info .icon.prognoza {
-  font-size: 8em; /* Eksperimentirajte s ovom vrijednošću da dobijete željenu visinu ikone */
+  font-size: 8rem; /* 8em -> 8rem (ako je bazni font 16px) */
   line-height: 1;
 }
 
-/* NOVI STILOVI ZA HEADER TEKSTOVE */
+/* STILOVI ZA HEADER TEKSTOVE */
 header .time-date-group {
   display: flex;
   flex-direction: column;
@@ -45,7 +49,7 @@ header .time-date-group {
 }
 
 header .time-date-group h1 {
-  font-size: 2.8em;
+  font-size: clamp(1.8rem, 5vw, 2.8rem); /* Responzivni font-size: min 1.8rem, preferirano 5vw, max 2.8rem */
   font-weight: 600;
   color: #333;
   margin: 0;
@@ -53,7 +57,7 @@ header .time-date-group h1 {
 }
 
 header .time-date-group h2 {
-  font-size: 1.5em;
+  font-size: clamp(0.9rem, 2.5vw, 1.25rem); /* Responzivni font-size: min 0.9rem, preferirano 2.5vw, max 1.25rem */
   font-weight: 400;
   color: #555;
   margin: 0;
@@ -61,48 +65,73 @@ header .time-date-group h2 {
 }
 
 .section-title {
-  font-size: 1.5em;
+  font-size: 1.5rem; /* 1.5em -> 1.5rem */
   font-weight: 500;
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem; /* 15px -> 0.9375rem */
   color: #555;
 }
 
-.card-wrapper {
+/* Responzivni kontejneri za kartice */
+.current-events, .my-events {
   display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 10px 0;
+  flex-wrap: wrap; /* Omogućava prelamanje elemenata u novi red */
+  /* KLJUČNA PROMJENA: Koristimo justify-content: space-evenly */
+  justify-content: flex-start; /* Raspoređuje elemente s jednakim razmacima SVEUDA */
+  /* Uklanjamo gap, jer space-evenly preuzima upravljanje razmacima */
+  /* Ako ipak želite vertikalni razmak između redova, dodajte: */
+  row-gap: 1.25rem; /* 20px -> 1.25rem */
+  column-gap: 1.25rem;
 }
+
+/* Opći stil za sve kartice događaja */
 .card {
   background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.9375rem; /* 15px -> 0.9375rem */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 0 4px 6px -> 0 0.25rem 0.375rem */
   overflow: hidden;
-  width: 25%;
-  font-size: 14px;
+  font-size: 0.875rem; /* 14px -> 0.875rem */
 
+  /* KLJUČNA PROMJENA: flex-grow: 0 (ne raste), flex-shrink: 1 (može se smanjiti), flex-basis: 27rem */
+  flex: 0 1 27rem; /* Fiksna bazna širina, ne raste, može se smanjiti */
+  max-width: 27rem; /* Maksimalna širina kartice je fiksna */
 }
 
 .card-header {
   position: relative;
-  height: 150px;
+  height: 9.375rem; /* 150px -> 9.375rem */
   background: url(https://shorturl.at/IXOmx) no-repeat center/cover;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px;
+  padding: 0.625rem; /* 10px -> 0.625rem */
+  z-index: 0; /* Osigurava da pseudo-element bude iznad pozadine, ali ispod teksta */
+}
+
+/* Sloj za zatamnjenje pozadinske slike */
+.card-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Povećanje zatamnjenja (sa 0.4 na 0.6) i dodavanje blura */
+  background-color: rgba(0, 0, 0, 0.6); /* Povećano zatamnjenje */
+  filter: blur(0.250rem); /* Blagi blur, 2px */
+  z-index: 1;
 }
 
 .date-badge {
   background-color: rgba(255, 255, 255, 0.9);
   color: #db7c00;
   font-weight: bold;
-  border-radius: 8px;
-  padding: 5px 10px;
+  border-radius: 0.5rem; /* 8px -> 0.5rem */
+  padding: 0.3125rem 0.625rem; /* 5px 10px -> 0.3125rem 0.625rem */
   text-align: center;
-  width: 50px;
+  width: 3.125rem; /* 50px -> 3.125rem */
+  position: relative; /* Važno za z-index */
+  z-index: 2; /* Iznad sloja za zatamnjenje */
 }
 
 .date-badge span {
@@ -110,26 +139,31 @@ header .time-date-group h2 {
 }
 
 .card-header h3 {
-  margin: 0;
-  font-size: 16px;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  font-size: 1.50rem; /* Povećan font: 16px -> 1.25rem (20px) */
   font-weight: bold;
   color: white;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.7); /* 0 1px 3px -> 0 0.0625rem 0.1875rem */
+  position: relative; /* Važno za z-index */
+  z-index: 2; /* Iznad sloja za zatamnjenje */
 }
 
 .card-header p {
   margin: 0;
-  font-size: 13px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  font-size: 1rem; /* Povećan font: 13px -> 1rem (16px) */
+  text-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.7); /* 0 1px 3px -> 0 0.0625rem 0.1875rem */
+  position: relative; /* Važno za z-index */
+  z-index: 2; /* Iznad sloja za zatamnjenje */
 }
 
 .card-content {
-  padding: 15px;
+  padding: 0.9375rem; /* 15px -> 0.9375rem */
 }
 
 .card-content p {
   margin: 0;
-  font-size: 13px;
+  font-size: 0.8125rem; /* 13px -> 0.8125rem */
   color: #777;
 }
 
@@ -137,20 +171,20 @@ header .time-date-group h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: 0.625rem 0.9375rem; /* 10px 15px -> 0.625rem 0.9375rem */
   background-color: #f9f9f9;
-  border-top: 1px solid #eee;
+  border-top: 0.0625rem solid #eee; /* 1px -> 0.0625rem */
 }
 
 .card-footer .info {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0.3125rem; /* 5px -> 0.3125rem */
 }
 
 .card-footer img {
-  width: 30px;
-  height: 30px;
+  width: 1.875rem; /* 30px -> 1.875rem */
+  height: 1.875rem; /* 30px -> 1.875rem */
   border-radius: 50%;
 }
 
@@ -158,16 +192,54 @@ header .time-date-group h2 {
   background-color: #ff6347;
   color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
+  border-radius: 0.5rem; /* 8px -> 0.5rem */
+  padding: 0.5rem 0.75rem; /* 8px 12px -> 0.5rem 0.75rem */
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.875rem; /* 14px -> 0.875rem */
   transition: background-color 0.3s;
 }
 
 .card-footer button:hover {
   background-color: #e55340;
 }
+
+/* SPECIFIČNI STILOVI ZA KARTICU "KREIRAJ DOGAĐAJ" */
+.create-event-card {
+  background-color: #fce2da;
+  border: 0.125rem dashed #ff917f; /* 2px -> 0.125rem */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ff5733;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  height: 15.625rem; /* Fiksna visina za "Kreiraj događaj" karticu, 250px -> 15.625rem */
+  border-radius: 0.9375rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.05);
+
+  /* KLJUČNA PROMJENA: flex-grow: 0 (ne raste), flex-shrink: 1 (može se smanjiti), flex-basis: 27rem */
+  flex: 0 1 27rem; /* Fiksna bazna širina, ne raste, može se smanjiti */
+  max-width: 27rem; /* Maksimalna širina kartice je fiksna */
+}
+
+.create-event-card:hover {
+  background-color: #fdd4c8;
+}
+
+.create-event-card .plus-icon {
+  font-size: 4rem; /* 4em -> 4rem */
+  margin-bottom: 0.625rem; /* 10px -> 0.625rem */
+}
+
+.create-event-card span {
+  font-size: 1.25rem; /* 1.2em -> 1.25rem (20px) */
+  font-weight: 500;
+}
+
+
+/* Stari .buttons stilovi, ako ih još koristite */
 .buttons {
   position: absolute;
   top: 60%;
@@ -181,17 +253,92 @@ header .time-date-group h2 {
   background-color: #FA812F;
   color: white;
   border: none;
-  padding: 10px;
+  padding: 0.625rem; /* 10px -> 0.625rem */
   border-radius: 50%;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 1.125rem; /* 18px -> 1.125rem */
   opacity: 0.8;
   transition: opacity 0.3s;
-  width: 50px;
-  height: 50px;
-  margin: 10px;
+  width: 3.125rem; /* 50px -> 3.125rem */
+  height: 3.125rem; /* 50px -> 3.125rem */
+  margin: 0.625rem; /* 10px -> 0.625rem */
 }
 
 .buttons button:hover {
   opacity: 1;
+}
+
+/* Media Queries za finije podešavanje na manjim ekranima */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; /* Smanjite bazni font na tabletima */
+  }
+
+  header {
+    flex-direction: column; /* Stavi elemente headera jedan ispod drugog */
+    align-items: flex-start; /* Poravnaj lijevo */
+    height: auto; /* Visina automatska */
+    gap: 1rem; /* Smanji razmak */
+    padding: 1rem 0;
+  }
+
+  .weather-info {
+    font-size: 1em; /* Smanji bazni font za weather info */
+  }
+
+  .weather-info .icon.prognoza {
+    font-size: 6rem; /* Smanji ikonu */
+  }
+
+  header .time-date-group h1 {
+    font-size: 2rem; /* Smanji font naslova */
+  }
+
+  header .time-date-group h2 {
+    font-size: 1rem; /* Smanji font podnaslova */
+  }
+
+  .container {
+    padding: 1rem; /* Smanji padding kontejnera */
+  }
+
+  /* Na manjim ekranima kartice se prilagođavaju da idu 2 ili 1 po redu */
+  .card, .create-event-card {
+    /* Za 768px i manje, želimo da se 2 kartice lijepo uklapaju.
+       Space-evenly će rasporediti razmake. flex-basis treba biti 50% minus malo
+       da bi se dopustilo space-evenly da radi svoj posao.
+       Ovo osigurava da kartice NE budu striktno 27rem, već se prilagođavaju.
+       Ako bi bile striktno 27rem, često bi stala samo jedna na red. */
+    flex: 0 1 calc(50% - 1.25rem); /* Neka bude prostora za space-evenly */
+    max-width: calc(50% - 1.25rem);
+  }
+
+  @media (max-width: 580px) { /* Još manji ekrani, jedna kartica po redu */
+    .card, .create-event-card {
+      flex: 0 1 100%;
+      max-width: 100%;
+    }
+  }
+
+  .section-title {
+    font-size: 1.2rem; /* Smanji font naslova sekcije */
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px; /* Još manje na jako malim ekranima */
+  }
+
+  .weather-info .icon.prognoza {
+    font-size: 5rem;
+  }
+
+  header .time-date-group h1 {
+    font-size: 1.8rem;
+  }
+
+  header .time-date-group h2 {
+    font-size: 0.9rem;
+  }
 }
