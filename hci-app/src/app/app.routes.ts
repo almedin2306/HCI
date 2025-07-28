@@ -9,12 +9,14 @@ import { AdminComponent } from './admin/admin.component'; // Make sure to create
 import { SettingsComponent } from './settings/settings.component'; // Make sure to create this
 import {LayoutOrganizerComponent} from './ORGANIZACIJA/layout-organizer/layout-organizer.component';
 import {OrganizerHomeComponent} from './ORGANIZACIJA/organizer-home.component/organizer-home.component';
+import {LayoutVolunteerComponent} from './VOLONTERI/layout-volunteer/layout-volunteer.component';
+import {VolunteerHomeComponent} from './VOLONTERI/volunteer-home.component/volunteer-home.component';
 
 export const routes: Routes = [
   {
     path: '', // This means the base URL (e.g., http://localhost:4200/)
-    component: LayoutComponent, // The LayoutComponent is loaded here
-    children: [ // Routes defined here will load their components INTO LayoutComponent's <router-outlet>
+    component: LayoutComponent, // The LayoutVolunteerComponent is loaded here
+    children: [ // Routes defined here will load their components INTO LayoutVolunteerComponent's <router-outlet>
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirects default to /home
       { path: 'home', component: HomeComponent }, // When /home, HomeComponent loads in router-outlet
       { path: 'organizations', component: OrganizationsComponent }, // When /organizations, OrganizationsComponent loads in router-outlet
@@ -28,9 +30,21 @@ export const routes: Routes = [
   },
   { path: 'organization',
     component: LayoutOrganizerComponent ,
-    children: [ // Routes defined here will load their components INTO LayoutComponent's <router-outlet>
+    children: [ // Routes defined here will load their components INTO LayoutVolunteerComponent's <router-outlet>
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirects default to /home
       { path: 'home', component: HomeComponent }, // When /home, HomeComponent loads in router-outlet
+      { path: 'organizations', component: OrganizerHomeComponent }, // When /organizations, OrganizationsComponent loads in router-outlet
+      { path: 'volunteers', component: VolunteersComponent },
+      { path: 'events', component: EventsComponent },
+      { path: 'admin', component: AdminComponent },
+      { path: 'settings', component: SettingsComponent },
+    ],
+  },
+  { path: 'volunteer',
+    component: LayoutVolunteerComponent ,
+    children: [ // Routes defined here will load their components INTO LayoutVolunteerComponent's <router-outlet>
+      { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirects default to /home
+      { path: 'home', component: VolunteerHomeComponent }, // When /home, HomeComponent loads in router-outlet
       { path: 'organizations', component: OrganizerHomeComponent }, // When /organizations, OrganizationsComponent loads in router-outlet
       { path: 'volunteers', component: VolunteersComponent },
       { path: 'events', component: EventsComponent },

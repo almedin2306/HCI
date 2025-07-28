@@ -1,0 +1,372 @@
+/* Container for the entire volunteer home view */
+.volunteer-home-main-content {
+  padding: 20px;
+  /* Removed background-color: #f0f2f5; to make it transparent/inherit parent background */
+  min-height: calc(100vh - 100px); /* Adjust based on your header height if it's external */
+  /* If you have a fixed sidebar, keep this: margin-left: 250px; */
+}
+
+/* Section titles (e.g., "Trenutno aktivni događaji") */
+.volunteer-home-main-content h2 {
+  font-size: 26px; /* Slightly larger title */
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 25px; /* More space below title */
+  margin-top: 35px; /* More space above section title */
+}
+
+.volunteer-home-main-content h2:first-of-type {
+  margin-top: 0;
+}
+
+/* Common styles for card sections (to contain cards and scroll buttons) */
+.card-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px; /* Increased space between rows of cards */
+}
+
+/* Common styles for card wrappers (for horizontal scrolling) */
+.card-wrapper, .task-card-wrapper {
+  display: flex;
+  gap: 20px; /* Space between cards */
+  overflow-x: hidden; /* Hide the default scrollbar */
+  scroll-behavior: smooth;
+  padding: 10px 0;
+  flex-grow: 1;
+}
+
+/* Hide scrollbar for Webkit browsers (Chrome, Safari, Opera) */
+.card-wrapper::-webkit-scrollbar, .task-card-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scroll buttons */
+.scroll-button {
+  background-color: #FA812F;
+  color: white;
+  border: none;
+  padding: 12px; /* Bigger buttons */
+  border-radius: 50%; /* Make them round */
+  cursor: pointer;
+  font-size: 22px; /* Larger arrow icon */
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  width: 50px; /* Bigger buttons */
+  height: 50px; /* Bigger buttons */
+  flex-shrink: 0;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* More prominent shadow */
+}
+
+.scroll-button:hover:not(:disabled) { /* Hover effect only if not disabled */
+  opacity: 1;
+}
+
+.scroll-button:disabled { /* Style for disabled buttons */
+  background-color: #cccccc; /* Greyed out */
+  cursor: not-allowed;
+  opacity: 0.5; /* More faded */
+}
+
+/* Adjust button positioning to slightly overlap the card wrapper */
+.scroll-button.left {
+  margin-right: -15px;
+}
+
+.scroll-button.right {
+  margin-left: -15px;
+}
+
+/* --- Styles for "Trenutno aktivni događaji" cards (First Row) --- */
+.card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  min-width: calc((100% / 4) - 15px); /* Max 4 elements + gap. Adjust 15px based on total gap */
+  max-width: calc((100% / 4) - 15px);
+  flex-shrink: 0;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  position: relative;
+  height: 180px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+.date-badge {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #db7c00;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 8px 15px;
+  text-align: center;
+  width: 70px;
+  font-size: 16px;
+  align-self: flex-start;
+}
+
+.date-badge span {
+  display: block;
+  line-height: 1.2;
+}
+.date-badge span:first-child {
+  font-size: 22px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.card-header p {
+  margin: 0;
+  font-size: 16px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.card-content {
+  padding: 20px;
+  background-color: #fefefe;
+  flex-grow: 1;
+}
+
+.card-content p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+.card-footer .info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: #666;
+}
+
+.card-footer img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #eee;
+}
+
+.card-footer button {
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  font-weight: 500;
+}
+
+.card-footer button:hover {
+  background-color: #e55340;
+}
+
+
+/* --- Styles for "Trenutno aktivni zadaci" cards (Second Row) --- */
+.task-card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-width: calc((100% / 4) - 15px); /* Max 4 elements + gap. Adjust 15px based on total gap */
+  max-width: calc((100% / 4) - 15px);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-card-header {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #eee;
+}
+
+.task-card-header h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+}
+
+.task-card-content {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.task-info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.task-info-row .label {
+  font-weight: 500;
+  color: #777;
+  flex-shrink: 0;
+  margin-right: 15px;
+}
+
+.task-info-row .value {
+  color: #333;
+  text-align: right;
+  flex-grow: 1;
+}
+
+.task-card-footer {
+  padding: 20px;
+  background-color: #fff;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.task-name-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.task-name-section .label {
+  font-size: 15px;
+  color: #777;
+  font-weight: 500;
+}
+
+.task-name-section .task-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.task-card-footer button {
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  width: 100%;
+  font-weight: 500;
+}
+
+.task-card-footer button:hover {
+  background-color: #e55340;
+}
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1400px) {
+  .card, .task-card {
+    min-width: calc((100% / 3) - 14px); /* Approx 3 elements + gap */
+    max-width: calc((100% / 3) - 14px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .card, .task-card {
+    min-width: calc((100% / 2) - 10px); /* Approx 2 elements + gap */
+    max-width: calc((100% / 2) - 10px);
+  }
+  .volunteer-home-main-content h2 {
+    font-size: 24px;
+  }
+  .scroll-button {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card, .task-card {
+    min-width: calc(100% - 20px); /* Full width minus padding */
+    max-width: calc(100% - 20px);
+  }
+  .volunteer-home-main-content {
+    padding: 15px;
+  }
+  .scroll-button {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .volunteer-home-main-content h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  .card-header {
+    height: 160px;
+    padding: 15px;
+  }
+  .date-badge {
+    padding: 6px 12px;
+    width: 60px;
+    font-size: 14px;
+  }
+  .date-badge span:first-child {
+    font-size: 18px;
+  }
+  .card-header h3 {
+    font-size: 18px;
+  }
+  .card-header p {
+    font-size: 14px;
+  }
+  .card-content, .card-footer, .task-card-header, .task-card-content, .task-card-footer {
+    padding: 15px;
+  }
+  .card-content p, .task-info-row, .task-name-section .label {
+    font-size: 14px;
+  }
+  .card-footer img {
+    width: 35px;
+    height: 35px;
+  }
+  .card-footer button, .task-card-footer button {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  .scroll-button {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+}

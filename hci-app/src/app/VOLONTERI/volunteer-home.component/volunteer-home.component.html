@@ -1,0 +1,63 @@
+<div class="volunteer-home-main-content">
+  <h2>Trenutno aktivni događaji</h2>
+  <div class="card-section">
+    <button class="scroll-button left" (click)="scroll('left', 'events')" [disabled]="isEventScrollLeftDisabled">&#10094;</button>
+    <div class="card-wrapper" #eventCardWrapper (scroll)="updateScrollButtonStates('events')">
+      <div class="card" *ngFor="let event of activeEvents">
+        <div class="card-header" [style.background-image]="'url(' + event.imageUrl + ')'">
+          <div class="date-badge">
+            <span>{{ event.day }}</span>
+            <span>{{ event.month }}</span>
+          </div>
+          <h3>{{ event.title }}</h3>
+          <p>{{ event.location }}</p>
+        </div>
+        <div class="card-content">
+          <p>⏰ {{ event.timeRange }} &nbsp;&nbsp; | &nbsp;&nbsp; {{ event.remainingPlaces }}</p>
+        </div>
+        <div class="card-footer">
+          <div class="info">
+            <img [src]="event.organizerLogoUrl" alt="Organizator logo">
+            <span>{{ event.organizerName }}</span>
+          </div>
+          <button>Više</button>
+        </div>
+      </div>
+    </div>
+    <button class="scroll-button right" (click)="scroll('right', 'events')" [disabled]="isEventScrollRightDisabled">&#10095;</button>
+  </div>
+
+  <h2 class="section-title">Trenutno aktivni zadaci</h2>
+  <div class="card-section">
+    <button class="scroll-button left" (click)="scroll('left', 'tasks')" [disabled]="isTaskScrollLeftDisabled">&#10094;</button>
+    <div class="task-card-wrapper" #taskCardWrapper (scroll)="updateScrollButtonStates('tasks')">
+      <div class="task-card" *ngFor="let task of activeTasks">
+        <div class="task-card-header">
+          <h4>{{ task.organizationName }}</h4>
+        </div>
+        <div class="task-card-content">
+          <div class="task-info-row">
+            <span class="label">Mjesto:</span>
+            <span class="value">{{ task.location }}</span>
+          </div>
+          <div class="task-info-row">
+            <span class="label">Vrijeme:</span>
+            <span class="value">{{ task.time }}</span>
+          </div>
+          <div class="task-info-row">
+            <span class="label">Trajanje:</span>
+            <span class="value">{{ task.duration }}</span>
+          </div>
+        </div>
+        <div class="task-card-footer">
+          <div class="task-name-section">
+            <span class="label">Naziv zadatka:</span>
+            <span class="value task-title">{{ task.taskTitle }}</span>
+          </div>
+          <button>Više</button>
+        </div>
+      </div>
+    </div>
+    <button class="scroll-button right" (click)="scroll('right', 'tasks')" [disabled]="isTaskScrollRightDisabled">&#10095;</button>
+  </div>
+</div>
