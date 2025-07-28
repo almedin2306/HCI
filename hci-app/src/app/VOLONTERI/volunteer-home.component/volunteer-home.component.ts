@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChildren, ElementRef, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
-import { fromEvent, Subscription } from 'rxjs';
-import { throttleTime } from 'rxjs/operators';
 
-// Interface for the "Trenutno aktivni događaji" cards
+// Interface for the "Trenutno aktivni događaji" cards (Existing)
 interface ActiveEvent {
   day: number;
   month: string;
@@ -13,165 +11,172 @@ interface ActiveEvent {
   remainingPlaces: string;
   organizerName: string;
   organizerLogoUrl: string;
-  imageUrl: string; // Background image for the card header
+  imageUrl: string;
 }
 
-// Interface for the "Trenutno aktivni zadaci" cards
+// Interface for the "Trenutno aktivni zadaci" cards (MODIFIED)
 interface ActiveTask {
   organizationName: string;
   location: string;
   time: string;
   duration: string;
   taskTitle: string;
+  isBlurred?: boolean; // NEW: Property to control the blur effect
+  eventName: string;
 }
 
-
 @Component({
-  selector: 'app-volunteer-home.component',
+  selector: 'app-volunteer-home',
   standalone: true,
   imports: [CommonModule, DatePipe, NgClass],
   templateUrl: './volunteer-home.component.html',
-  styleUrl: './volunteer-home.component.css'
+  styleUrls: ['./volunteer-home.component.css']
 })
-
-export class VolunteerHomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class VolunteerHomeComponent implements OnInit, OnDestroy, AfterViewInit { // Implement AfterViewInit
+  currentTime: string = '';
+  currentDate: string = '';
+  private clockInterval: any;
 
   activeEvents: ActiveEvent[] = [];
   activeTasks: ActiveTask[] = [];
 
-  // ViewChildren to get references to the card wrappers for scrolling
-  @ViewChildren('eventCardWrapper') eventCardWrapper!: QueryList<ElementRef>;
-  @ViewChildren('taskCardWrapper') taskCardWrapper!: QueryList<ElementRef>;
+  // ViewChild to get a reference to the scrollable container
+  @ViewChild('tasksContainer') tasksContainer!: ElementRef<HTMLElement>;
 
-  // Properties to control arrow visibility/disabled state
-  isEventScrollLeftDisabled: boolean = true;
-  isEventScrollRightDisabled: boolean = false;
-  isTaskScrollLeftDisabled: boolean = true;
-  isTaskScrollRightDisabled: boolean = false;
+  private intersectionObserver: IntersectionObserver | undefined;
 
-  private scrollSubscriptions: Subscription[] = [];
+  // Properties to control arrow button disabled state
+  canScrollLeft: boolean = false;
+  canScrollRight: boolean = true; // Initially assume can scroll right
 
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { } // Inject ChangeDetectorRef for manual change detection
 
   ngOnInit(): void {
-    this.loadMockData();
+    this.updateClock();
+    this.clockInterval = setInterval(() => this.updateClock(), 1000);
+    this.loadMockData(); // Load event and task data
   }
 
+  // After the view (including *ngFor elements) has been initialized
   ngAfterViewInit(): void {
-    // Set initial arrow states after view is initialized and data is loaded
-    this.updateScrollButtonStates('events');
-    this.updateScrollButtonStates('tasks');
-
-    // Subscribe to scroll events to update button states
-    this.eventCardWrapper.changes.subscribe(() => {
-      if (this.eventCardWrapper.first) {
-        this.scrollSubscriptions.push(
-          fromEvent(this.eventCardWrapper.first.nativeElement, 'scroll')
-            .pipe(throttleTime(100)) // Throttle to prevent excessive calls
-            .subscribe(() => this.updateScrollButtonStates('events'))
-        );
-      }
-      this.updateScrollButtonStates('events'); // Update if content changes
-    });
-
-    this.taskCardWrapper.changes.subscribe(() => {
-      if (this.taskCardWrapper.first) {
-        this.scrollSubscriptions.push(
-          fromEvent(this.taskCardWrapper.first.nativeElement, 'scroll')
-            .pipe(throttleTime(100)) // Throttle to prevent excessive calls
-            .subscribe(() => this.updateScrollButtonStates('tasks'))
-        );
-      }
-      this.updateScrollButtonStates('tasks'); // Update if content changes
-    });
-
-    // Initial check in case data loads before ngAfterViewInit changes subscription fires
-    setTimeout(() => {
-      this.updateScrollButtonStates('events');
-      this.updateScrollButtonStates('tasks');
-    }, 0);
+    this.setupIntersectionObserver();
+    // Initial check for scroll button state after view is rendered
+    this.updateScrollButtonState();
   }
 
   ngOnDestroy(): void {
-    this.scrollSubscriptions.forEach(sub => sub.unsubscribe());
+    if (this.clockInterval) {
+      clearInterval(this.clockInterval);
+    }
+    if (this.intersectionObserver) {
+      this.intersectionObserver.disconnect(); // Disconnect observer to prevent memory leaks
+    }
   }
 
+  updateClock(): void {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    this.currentTime = `${hours}:${minutes}:${seconds}`;
+
+    const months = [
+      'Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni',
+      'Juli', 'Avgust', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'
+    ];
+
+    const day = now.getDate();
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
+
+    this.currentDate = `${day} ${month} ${year}`;
+  }
+
+  // Method to load mock data for both events and tasks
   loadMockData(): void {
-    this.activeEvents = [
-      { day: 13, month: 'DEC', title: 'Akcija pošumljavanja', location: 'Skakavac', timeRange: '8:30 - 15:00', remainingPlaces: '100 mjesta preostalo', organizerName: 'Naziv organizatora', organizerLogoUrl: 'assets/images/user-placeholder.png', imageUrl: 'assets/images/forest.jpg' },
-      { day: 10, month: 'JAN', title: 'Čišćenje gradskog parka', location: 'Park Općine Centar', timeRange: '9:00 - 12:00', remainingPlaces: '75 mjesta preostalo', organizerName: 'Zajedno za prirodu', organizerLogoUrl: 'assets/images/user-placeholder.png', imageUrl: 'assets/images/park-clean.jpg' },
-      { day: 15, month: 'JAN', title: 'Prikupljanje donacija', location: 'Mercator Dobrinja', timeRange: '10:00 - 18:00', remainingPlaces: 'Neograničeno', organizerName: 'Pomozi.ba', organizerLogoUrl: 'assets/images/user-placeholder.png', imageUrl: 'assets/images/donation.jpg' },
-      { day: 20, month: 'JAN', title: 'Radionica recikliranja', location: 'Biblioteka Grada', timeRange: '14:00 - 16:00', remainingPlaces: '15 mjesta preostalo', organizerName: 'Eko Aktivisti', organizerLogoUrl: 'assets/images/user-placeholder.png', imageUrl: 'assets/images/recycling.jpg' },
-      { day: 25, month: 'JAN', title: 'Posjeta staračkom domu', location: 'Dom za starije i nemoćne', timeRange: '11:00 - 14:00', remainingPlaces: '5 mjesta preostalo', organizerName: 'Srcem za Stare', organizerLogoUrl: 'assets/images/user-placeholder.png', imageUrl: 'assets/images/elderly.jpg' },
-      { day: 28, month: 'JAN', title: 'Edukacija mladih', location: 'Omladinski centar', timeRange: '10:00 - 13:00', remainingPlaces: '30 mjesta preostalo', organizerName: 'Mladi za Mlade', organizerLogoUrl: 'assets/images/user-placeholder.png', imageUrl: 'assets/images/education.jpg' }
-    ];
-
     this.activeTasks = [
-      { organizationName: 'Zajedno za Prirodu', location: 'Skladište', time: '8:30', duration: '1h 20min', taskTitle: 'Prikupljanje sadnica' },
-      { organizationName: 'Zajedno za Prirodu', location: 'Skladište', time: '8:30', duration: '1h 20min', taskTitle: 'Prikupljanje sadnica' },
-      { organizationName: 'Zajedno za Prirodu', location: 'Skladište', time: '8:30', duration: '1h 20min', taskTitle: 'Prikupljanje sadnica' },
-      { organizationName: 'Pomoc Svima', location: 'Distributivni centar', time: '9:00', duration: '2h 0min', taskTitle: 'Sortiranje donacija' },
-      { organizationName: 'Gradska Cistoca', location: 'Park Centar', time: '10:00', duration: '1h 0min', taskTitle: 'Ciscenje parka' },
-      { organizationName: 'Nase Naslijedje', location: 'Muzej', time: '13:00', duration: '3h 30min', taskTitle: 'Arhiviranje dokumenata' },
-      { organizationName: 'Studentska Unija', location: 'Kampus', time: '14:00', duration: '2h 0min', taskTitle: 'Pomoc pri tutorstvu' }
+      { eventName:"Akcija pošumljavanja", organizationName: 'Lovačko društvo Sarajevo', location: 'Skladište', time: '08:30', duration: '30min', taskTitle: 'Prikupljanje sadnica', isBlurred: false },
+      { eventName:"Akcija pošumljavanja",organizationName: 'Lovačko društvo Sarajevo', location: 'Skladište', time: '09:00', duration: '45min', taskTitle: 'Transport sadnica', isBlurred: false },
+      { eventName:"Akcija pošumljavanja",organizationName: 'Lovačko društvo Sarajevo', location: 'Lokacija Akcije', time: '09:45', duration: '45min', taskTitle: 'Priprema terena', isBlurred: false },
+      { eventName:"Akcija pošumljavanja",organizationName: 'Lovačko društvo Sarajevo', location: 'Lokacija Akcije', time: '10:30', duration: '3h 30min', taskTitle: 'Sadnja stabala', isBlurred: false },
+      { eventName:"Akcija pošumljavanja",organizationName: 'Lovačko društvo Sarajevo', location: 'Lokacija Akcije', time: '14:00', duration: '1h', taskTitle: 'Zalijevanje sadnica', isBlurred: false },
     ];
   }
 
-  scroll(direction: 'left' | 'right', wrapperType: 'events' | 'tasks'): void {
-    let wrapperElement: HTMLElement | undefined;
-    const cardWidth = wrapperType === 'events' ? 350 : 300; // Match CSS card width
-    const gap = 20; // Match CSS gap
-    const scrollAmount = cardWidth + gap;
+  // Handles horizontal scrolling of the tasks container
+  scrollTasks(direction: 'left' | 'right'): void {
+    if (!this.tasksContainer) return; // Safety check if element is not yet available
+    const container = this.tasksContainer.nativeElement;
 
-    if (wrapperType === 'events' && this.eventCardWrapper.first) {
-      wrapperElement = this.eventCardWrapper.first.nativeElement;
-    } else if (wrapperType === 'tasks' && this.taskCardWrapper.first) {
-      wrapperElement = this.taskCardWrapper.first.nativeElement;
-    }
+    // Get the width of one task card plus its column gap for scrolling
+    const firstCard = container.querySelector('.task-card');
+    if (firstCard) {
+      const cardWidth = firstCard.clientWidth;
+      // Get the computed column-gap from the container's styles
+      const columnGap = parseFloat(getComputedStyle(container).columnGap || '0');
+      const scrollAmount = cardWidth + columnGap;
 
-    if (wrapperElement) {
       if (direction === 'left') {
-        wrapperElement.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
       } else {
-        wrapperElement.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
       }
-      // Update states immediately after scroll initiation
-      setTimeout(() => this.updateScrollButtonStates(wrapperType), 300); // Small delay to allow scroll to complete
     }
   }
 
-  updateScrollButtonStates(wrapperType: 'events' | 'tasks'): void {
-    let wrapperElement: HTMLElement | undefined;
+  // Updates the disabled state of scroll arrows based on scroll position
+  onTasksScroll(): void {
+    this.updateScrollButtonState();
+  }
 
-    if (wrapperType === 'events' && this.eventCardWrapper.first) {
-      wrapperElement = this.eventCardWrapper.first.nativeElement;
-    } else if (wrapperType === 'tasks' && this.taskCardWrapper.first) {
-      wrapperElement = this.taskCardWrapper.first.nativeElement;
+  private updateScrollButtonState(): void {
+    if (!this.tasksContainer) {
+      this.canScrollLeft = false;
+      this.canScrollRight = false;
+      return;
+    }
+    const container = this.tasksContainer.nativeElement;
+    // Check if scrolled to the beginning
+    this.canScrollLeft = container.scrollLeft > 0;
+    // Check if scrolled to the end (allow a small tolerance)
+    this.canScrollRight = container.scrollLeft + container.clientWidth < container.scrollWidth - 1; // -1 for tolerance
+    this.cdr.detectChanges(); // Manually trigger change detection for these properties
+  }
+
+  // Sets up the Intersection Observer for card visibility
+  setupIntersectionObserver(): void {
+    if (!this.tasksContainer || !this.tasksContainer.nativeElement) {
+      return;
     }
 
-    if (wrapperElement) {
-      const scrollLeft = wrapperElement.scrollLeft;
-      const scrollWidth = wrapperElement.scrollWidth;
-      const clientWidth = wrapperElement.clientWidth;
+    const options = {
+      root: this.tasksContainer.nativeElement, // Observe relative to the scrolling container
+      rootMargin: '0px',
+      threshold: Array.from({ length: 101 }, (v, k) => k / 100) // Granular thresholds from 0 to 1
+    };
 
-      if (wrapperType === 'events') {
-        this.isEventScrollLeftDisabled = scrollLeft === 0;
-        this.isEventScrollRightDisabled = scrollLeft + clientWidth >= scrollWidth - 1; // -1 for minor precision issues
-      } else {
-        this.isTaskScrollLeftDisabled = scrollLeft === 0;
-        this.isTaskScrollRightDisabled = scrollLeft + clientWidth >= scrollWidth - 1; // -1 for minor precision issues
-      }
+    this.intersectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const taskElement = entry.target as HTMLElement;
+        // Find the corresponding task object in the activeTasks array
+        const children = Array.from(this.tasksContainer.nativeElement.children);
+        const taskIndex = children.indexOf(taskElement);
 
-      // If content is not scrollable at all (all fits in view), disable both
-      if (scrollWidth <= clientWidth) {
-        if (wrapperType === 'events') {
-          this.isEventScrollLeftDisabled = true;
-          this.isEventScrollRightDisabled = true;
-        } else {
-          this.isTaskScrollLeftDisabled = true;
-          this.isTaskScrollRightDisabled = true;
+        if (taskIndex !== -1 && this.activeTasks[taskIndex]) {
+          // Blur if the card is not fully visible (intersectionRatio < 0.98)
+          // AND it's not completely out of view (intersectionRatio > 0).
+          // This ensures only partially visible cards are blurred.
+          this.activeTasks[taskIndex].isBlurred = entry.intersectionRatio < 0.98 && entry.intersectionRatio > 0;
         }
-      }
-    }
+      });
+      this.cdr.detectChanges(); // Manually trigger change detection as we are updating array object properties
+      this.updateScrollButtonState(); // Update scroll button state after visibility changes
+    }, options);
+
+    // Observe each task card element
+    const taskCards = this.tasksContainer.nativeElement.querySelectorAll('.task-card');
+    taskCards.forEach(card => {
+      this.intersectionObserver?.observe(card);
+    });
   }
 }

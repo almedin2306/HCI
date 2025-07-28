@@ -1,272 +1,328 @@
-/* Container for the entire volunteer home view */
-.volunteer-home-main-content {
-  padding: 20px;
-  /* Removed background-color: #f0f2f5; to make it transparent/inherit parent background */
-  min-height: calc(100vh - 100px); /* Adjust based on your header height if it's external */
-  /* If you have a fixed sidebar, keep this: margin-left: 250px; */
+/* Definiranje bazne veličine fonta za rem jedinice */
+html {
+  font-size: 16px; /* 1rem = 16px. Možete ovo prilagoditi ako želite drugačiju baznu veličinu */
 }
 
-/* Section titles (e.g., "Trenutno aktivni događaji") */
-.volunteer-home-main-content h2 {
-  font-size: 26px; /* Slightly larger title */
-  font-weight: 600;
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f7f3ed;
+  margin: 0;
+  padding: 1.25rem; /* 20px -> 1.25rem */
   color: #333;
-  margin-bottom: 25px; /* More space below title */
-  margin-top: 35px; /* More space above section title */
 }
 
-.volunteer-home-main-content h2:first-of-type {
-  margin-top: 0;
+.container {
+  max-width: 75rem; /* 1200px. This limits how wide the container can get. */
+  margin: 0; /* CHANGED: This removes all auto margins, including left and right. */
+  display: grid;
 }
 
-/* Common styles for card sections (to contain cards and scroll buttons) */
-.card-section {
-  position: relative;
+header {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1.875rem; /* 30px -> 1.875rem */
+  align-items: center;
+  padding: 1.25rem 0; /* 20px -> 1.25rem */
+  height: 9.375rem; /* 150px -> 9.375rem */
+}
+
+.weather-info {
   display: flex;
   align-items: center;
-  margin-bottom: 50px; /* Increased space between rows of cards */
+  gap: 0.9375rem; /* 15px -> 0.9375rem */
+  color: #555;
+  height: 100%;
 }
 
-/* Common styles for card wrappers (for horizontal scrolling) */
-.card-wrapper, .task-card-wrapper {
-  display: flex;
-  gap: 20px; /* Space between cards */
-  overflow-x: hidden; /* Hide the default scrollbar */
-  scroll-behavior: smooth;
-  padding: 10px 0;
-  flex-grow: 1;
+.weather-info .icon.prognoza {
+  font-size: 8rem;
+  line-height: 1;
 }
 
-/* Hide scrollbar for Webkit browsers (Chrome, Safari, Opera) */
-.card-wrapper::-webkit-scrollbar, .task-card-wrapper::-webkit-scrollbar {
-  display: none;
-}
-
-/* Scroll buttons */
-.scroll-button {
-  background-color: #FA812F;
-  color: white;
-  border: none;
-  padding: 12px; /* Bigger buttons */
-  border-radius: 50%; /* Make them round */
-  cursor: pointer;
-  font-size: 22px; /* Larger arrow icon */
-  opacity: 0.8;
-  transition: opacity 0.3s;
-  width: 50px; /* Bigger buttons */
-  height: 50px; /* Bigger buttons */
-  flex-shrink: 0;
-  z-index: 10;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* More prominent shadow */
-}
-
-.scroll-button:hover:not(:disabled) { /* Hover effect only if not disabled */
-  opacity: 1;
-}
-
-.scroll-button:disabled { /* Style for disabled buttons */
-  background-color: #cccccc; /* Greyed out */
-  cursor: not-allowed;
-  opacity: 0.5; /* More faded */
-}
-
-/* Adjust button positioning to slightly overlap the card wrapper */
-.scroll-button.left {
-  margin-right: -15px;
-}
-
-.scroll-button.right {
-  margin-left: -15px;
-}
-
-/* --- Styles for "Trenutno aktivni događaji" cards (First Row) --- */
-.card {
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-  min-width: calc((100% / 4) - 15px); /* Max 4 elements + gap. Adjust 15px based on total gap */
-  max-width: calc((100% / 4) - 15px);
-  flex-shrink: 0;
-  height: auto;
+header .time-date-group {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
+header .time-date-group h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  line-height: 1.1;
+}
+
+header .time-date-group h2 {
+  font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+  font-weight: 400;
+  color: #555;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.9375rem; /* 15px */
+  color: #555;
+}
+
+/* Containers for cards - all should flex-wrap now */
+.current-events, .my-events, .current-tasks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Aligns items to the start of the container */
+  row-gap: 1.25rem; /* 20px */
+  column-gap: 1.25rem; /* 20px */
+  margin-bottom: 2.5rem; /* 40px - space between sections */
+}
+
+/* Opći stil za sve kartice događaja (.card) */
+.card {
+  background-color: #fff;
+  border-radius: 0.9375rem; /* 15px */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 0 4px 6px */
+  overflow: hidden;
+  font-size: 0.875rem; /* 14px */
+
+  /* Flex properties for consistent sizing across all card types */
+  flex: 0 1 27rem; /* Fiksna bazna širina, ne raste, može se smanjiti */
+  max-width: 27rem; /* Maksimalna širina kartice je fiksna */
+}
+
+/* Specific styling for event cards */
 .card-header {
   position: relative;
-  height: 180px;
+  height: 9.375rem; /* 150px */
+  background: url(https://shorturl.at/IXOmx) no-repeat center/cover; /* Default image if not overridden by *ngFor */
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
-  background-size: cover;
-  background-position: center;
+  padding: 0.625rem; /* 10px */
+  z-index: 0;
+}
+
+.card-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  filter: blur(0.250rem);
+  z-index: 1;
 }
 
 .date-badge {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.9);
   color: #db7c00;
   font-weight: bold;
-  border-radius: 10px;
-  padding: 8px 15px;
+  border-radius: 0.5rem; /* 8px */
+  padding: 0.3125rem 0.625rem; /* 5px 10px */
   text-align: center;
-  width: 70px;
-  font-size: 16px;
-  align-self: flex-start;
+  width: 3.125rem; /* 50px */
+  position: relative;
+  z-index: 2;
 }
 
 .date-badge span {
   display: block;
-  line-height: 1.2;
-}
-.date-badge span:first-child {
-  font-size: 22px;
 }
 
 .card-header h3 {
-  margin: 0;
-  font-size: 22px;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  font-size: 1.50rem;
   font-weight: bold;
   color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 2;
 }
 
 .card-header p {
   margin: 0;
-  font-size: 16px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  font-size: 1rem;
+  text-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 2;
 }
 
 .card-content {
-  padding: 20px;
-  background-color: #fefefe;
-  flex-grow: 1;
+  padding: 0.9375rem; /* 15px */
 }
 
 .card-content p {
   margin: 0;
-  font-size: 16px;
-  color: #555;
+  font-size: 0.8125rem; /* 13px */
+  color: #777;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  padding: 0.625rem 0.9375rem; /* 10px 15px */
   background-color: #f9f9f9;
-  border-top: 1px solid #eee;
+  border-top: 0.0625rem solid #eee; /* 1px */
 }
 
 .card-footer .info {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 15px;
-  color: #666;
+  gap: 0.3125rem; /* 5px */
 }
 
 .card-footer img {
-  width: 40px;
-  height: 40px;
+  width: 1.875rem; /* 30px */
+  height: 1.875rem; /* 30px */
   border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #eee;
 }
 
 .card-footer button {
   background-color: #ff6347;
   color: #fff;
   border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
+  border-radius: 0.5rem; /* 8px */
+  padding: 0.5rem 0.75rem; /* 8px 12px */
   cursor: pointer;
-  font-size: 16px;
+  font-size: 0.875rem; /* 14px */
   transition: background-color 0.3s;
-  font-weight: 500;
 }
 
 .card-footer button:hover {
   background-color: #e55340;
 }
 
-
-/* --- Styles for "Trenutno aktivni zadaci" cards (Second Row) --- */
-.task-card {
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  min-width: calc((100% / 4) - 15px); /* Max 4 elements + gap. Adjust 15px based on total gap */
-  max-width: calc((100% / 4) - 15px);
-  flex-shrink: 0;
+/* SPECIFIČNI STILOVI ZA KARTICU "KREIRAJ DOGAĐAJ" (if still relevant, otherwise remove) */
+.create-event-card {
+  background-color: #fce2da;
+  border: 0.125rem dashed #ff917f; /* 2px */
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ff5733;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  height: 15.625rem; /* 250px */
+  border-radius: 0.9375rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.05);
+
+  flex: 0 1 27rem;
+  max-width: 27rem;
+}
+
+.create-event-card:hover {
+  background-color: #fdd4c8;
+}
+
+.create-event-card .plus-icon {
+  font-size: 4rem;
+  margin-bottom: 0.625rem; /* 10px */
+}
+
+.create-event-card span {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+
+/* --- NEW/REVISED Styles for Task Cards (.task-card) --- */
+.task-card {
+  background-color: #fff;
+  border-radius: 0.9375rem; /* 15px */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 0 4px 6px */
+  overflow: hidden;
+  font-size: 0.875rem; /* 14px */
+
+  /* This is the key for making them fit in rows like the image */
+  flex: 0 1 calc((100% / 3) - 0.8333rem); /* For 3 cards per row, accounting for 1.25rem column-gap */
+  max-width: calc((100% / 3) - 0.8333rem);
+  min-width: 15rem; /* Ensure they don't get too small before wrapping */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto; /* Allow height to adjust */
 }
 
 .task-card-header {
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #eee;
+  padding: 1.25rem; /* 20px */
+  background-color: #fff; /* White header as in image */
+  border-bottom: 0.0625rem solid #eee; /* 1px border */
+  flex-shrink: 0;
 }
 
 .task-card-header h4 {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.125rem; /* 18px */
   color: #333;
   font-weight: 600;
+  text-align: left; /* Align organization name to the left */
 }
 
 .task-card-content {
-  padding: 20px;
+  padding: 1.25rem; /* 20px padding */
   flex-grow: 1;
-}
-
-.task-info-row {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  font-size: 15px;
+  justify-content: space-between; /* Distribute "Mjesto", "Vrijeme", "Trajanje" horizontally */
+  align-items: flex-start; /* Align items to the top */
+  flex-wrap: nowrap; /* Prevent wrapping of these items within the content area if possible */
+  column-gap: 1.25rem; /* 20px gap between these info columns */
 }
 
-.task-info-row .label {
+.task-card-content .task-info-row {
+  display: flex;
+  flex-direction: column; /* Stack label and value vertically */
+  align-items: flex-start; /* Align text to the left within its column */
+  margin-bottom: 0; /* No bottom margin for these rows */
+  flex: 1; /* Allow each info column to take equal space */
+  min-width: 4rem; /* Ensure they don't get too squished */
+}
+
+.task-card-content .task-info-row .label {
   font-weight: 500;
   color: #777;
-  flex-shrink: 0;
-  margin-right: 15px;
+  font-size: 0.875rem; /* 14px */
+  margin-bottom: 0.25rem; /* 4px space between label and value */
 }
 
-.task-info-row .value {
+.task-card-content .task-info-row .value {
   color: #333;
-  text-align: right;
-  flex-grow: 1;
+  font-weight: 600; /* Value is bolder */
+  font-size: 1rem; /* 16px */
 }
 
 .task-card-footer {
-  padding: 20px;
+  padding: 1.25rem; /* 20px */
   background-color: #fff;
-  border-top: 1px solid #eee;
+  border-top: 0.0625rem solid #eee;
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  justify-content: space-between; /* Align task name to left, button to right */
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .task-name-section {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  flex-direction: column; /* Stack label and task title vertically */
+  gap: 0.3125rem; /* 5px */
 }
 
 .task-name-section .label {
-  font-size: 15px;
+  font-size: 0.875rem; /* 14px */
   color: #777;
   font-weight: 500;
 }
 
 .task-name-section .task-title {
-  font-size: 18px;
+  font-size: 1.125rem; /* 18px */
   font-weight: 600;
   color: #333;
 }
@@ -275,12 +331,11 @@
   background-color: #ff6347;
   color: #fff;
   border: none;
-  border-radius: 10px;
-  padding: 12px 20px;
+  border-radius: 0.5rem; /* 8px */
+  padding: 0.75rem 1.25rem; /* 12px 20px */
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem; /* 16px */
   transition: background-color 0.3s;
-  width: 100%;
   font-weight: 500;
 }
 
@@ -289,84 +344,175 @@
 }
 
 
-/* Media Queries for Responsiveness */
-@media (max-width: 1400px) {
-  .card, .task-card {
-    min-width: calc((100% / 3) - 14px); /* Approx 3 elements + gap */
-    max-width: calc((100% / 3) - 14px);
-  }
-}
-
-@media (max-width: 1024px) {
-  .card, .task-card {
-    min-width: calc((100% / 2) - 10px); /* Approx 2 elements + gap */
-    max-width: calc((100% / 2) - 10px);
-  }
-  .volunteer-home-main-content h2 {
-    font-size: 24px;
-  }
-  .scroll-button {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
-  }
-}
-
+/* Media Queries for responsiveness - apply to both .card and .task-card */
 @media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .weather-info .icon.prognoza {
+    font-size: 6rem;
+  }
+
+  header .time-date-group h1 {
+    font-size: 2rem;
+  }
+
+  header .time-date-group h2 {
+    font-size: 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
   .card, .task-card {
-    min-width: calc(100% - 20px); /* Full width minus padding */
-    max-width: calc(100% - 20px);
+    flex: 0 1 calc(50% - 1.25rem); /* Two cards per row */
+    max-width: calc(50% - 1.25rem);
   }
-  .volunteer-home-main-content {
-    padding: 15px;
-  }
-  .scroll-button {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
+
+  .section-title {
+    font-size: 1.2rem;
   }
 }
 
-@media (max-width: 576px) {
-  .volunteer-home-main-content h2 {
-    font-size: 22px;
-    margin-bottom: 20px;
+@media (max-width: 580px) {
+  .card, .task-card {
+    flex: 0 1 100%; /* One card per row */
+    max-width: 100%;
   }
-  .card-header {
-    height: 160px;
-    padding: 15px;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
   }
-  .date-badge {
-    padding: 6px 12px;
-    width: 60px;
-    font-size: 14px;
+
+  .weather-info .icon.prognoza {
+    font-size: 5rem;
   }
-  .date-badge span:first-child {
-    font-size: 18px;
+
+  header .time-date-group h1 {
+    font-size: 1.8rem;
   }
-  .card-header h3 {
-    font-size: 18px;
+
+  header .time-date-group h2 {
+    font-size: 0.9rem;
   }
-  .card-header p {
-    font-size: 14px;
+}
+
+/* Add to your existing CSS */
+
+/* --- Scroll Container & Arrows --- */
+.scroll-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem; /* 10px gap between arrows and content */
+   /* Maintain original section spacing */
+}
+
+.scroll-arrow {
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+  font-size: 1.25rem; /* 20px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0; /* Prevent arrows from shrinking */
+  transition: background-color 0.3s ease, opacity 0.3s ease; /* Added opacity for disabled state */
+}
+
+.scroll-arrow:hover {
+  background-color: #e55340;
+}
+
+.scroll-arrow:disabled {
+  opacity: 0.5; /* Dim disabled arrows */
+  cursor: not-allowed;
+  background-color: #ccc; /* Lighter background for disabled */
+}
+
+/* --- Current Tasks Container (Scrollable) --- */
+.current-tasks {
+  display: flex; /* Keep flex for row layout */
+  flex-wrap: nowrap; /* IMPORTANT: Prevent cards from wrapping to the next line */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+  scroll-behavior: smooth; /* Smooth scroll on button click */
+  padding-bottom: 0.625rem; /* Space for scrollbar if present (optional) */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+  row-gap: 0; /* Remove row gap as it's a single row */
+  column-gap: 1.25rem; /* Keep column gap */
+  flex-grow: 1; /* Allow the tasks container to take available space */
+}
+
+/* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+.current-tasks::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Task Card Adjustments for Horizontal Scrolling --- */
+.task-card {
+  /* Keep existing styles like background, border-radius, box-shadow, overflow, font-size */
+  background-color: #fff;
+  border-radius: 0.9375rem; /* 15px */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 0 4px 6px */
+  overflow: hidden;
+  font-size: 0.875rem; /* 14px */
+
+  /* IMPORTANT: Set fixed width for horizontal scrolling */
+  flex: 0 0 20rem; /* Do not grow, do not shrink, fixed width of 20rem */
+  width: 25rem; /* Explicit width */
+  min-width: 25rem; /* Ensure it maintains this width */
+  max-width: 25rem; /* Ensure it does not exceed this width */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+  transition: filter 0.3s ease-in-out; /* Smooth transition for blur effect */
+}
+
+/* --- Blur/Brightness Effect for Partially Visible Cards --- */
+/*.task-card.blurred-card {
+  filter: blur(1.5px) brightness(0.7);  Adjust blur and brightness as desired
+}*/
+
+/* --- Media Queries (Adjustments for Responsiveness) --- */
+@media (max-width: 768px) {
+  /* ... (existing media queries for general cards) ... */
+
+  .task-card { /* Adjust task card width for smaller screens */
+    flex: 0 0 18rem; /* Slightly smaller fixed width */
+    width: 18rem;
+    min-width: 18rem;
+    max-width: 18rem;
   }
-  .card-content, .card-footer, .task-card-header, .task-card-content, .task-card-footer {
-    padding: 15px;
-  }
-  .card-content p, .task-info-row, .task-name-section .label {
-    font-size: 14px;
-  }
-  .card-footer img {
-    width: 35px;
-    height: 35px;
-  }
-  .card-footer button, .task-card-footer button {
-    padding: 8px 15px;
-    font-size: 14px;
-  }
-  .scroll-button {
-    width: 35px;
-    height: 35px;
-    font-size: 16px;
+}
+
+@media (max-width: 580px) {
+  /* ... (existing media queries for general cards) ... */
+
+  .task-card { /* Make task cards closer to full width on very small screens */
+    /* Adjust width to account for gap within the scroll-wrapper */
+    flex: 0 0 calc(100% - 1.25rem); /* 1.25rem is the column-gap */
+    width: calc(100% - 1.25rem);
+    min-width: calc(100% - 1.25rem);
+    max-width: calc(100% - 1.25rem);
   }
 }
