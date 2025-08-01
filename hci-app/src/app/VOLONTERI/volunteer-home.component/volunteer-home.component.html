@@ -1,129 +1,129 @@
-<div class="container" style="width:1450px;">
-  <header>
-    <div class="weather-info">
-      <span class="icon prognoza">☀️</span>
-      <div class="time-date-group">
-        <h1 id="current-time">{{ currentTime }}</h1>
-        <h2>Sunčano</h2>
+  <div class="container" style="width:1450px;">
+    <header>
+      <div class="weather-info">
+        <span class="icon prognoza">☀️</span>
+        <div class="time-date-group">
+          <h1 id="current-time">{{ currentTime }}</h1>
+          <h2>Sunčano</h2>
+        </div>
       </div>
-    </div>
-    <div class="date-info time-date-group">
-      <h1>Danas:</h1>
-      <h2 id="current-date">{{ currentDate }}</h2>
-    </div>
-  </header>
+      <div class="date-info time-date-group">
+        <h1>Danas:</h1>
+        <h2 id="current-date">{{ currentDate }}</h2>
+      </div>
+    </header>
 
-  <section>
-    <h2 class="section-title" style=" padding-bottom: 5px;">Trenutno aktivni zadaci</h2>
-    <div class="scroll-wrapper" style="width:1180px;  ">
-      <button class="scroll-arrow left-arrow" (click)="scrollTasks('left')" [disabled]="!canScrollLeft">&#9664;</button>
-      <div class="current-tasks" #tasksContainer (scroll)="onTasksScroll()">
-        <div class="task-card" *ngFor="let task of activeTasks" [class.blurred-card]="task.isBlurred">
-          <div class="task-card-header">
-            <h4 style="margin-bottom: 3px;">{{ task.eventName }}</h4>
-            <span class="label" style="color: #777;">{{ task.organizationName }}</span>
+    <section>
+      <h2 class="section-title" style=" padding-bottom: 5px;">Trenutno aktivni zadaci</h2>
+      <div class="scroll-wrapper" style="width:1180px;  ">
+        <button class="scroll-arrow left-arrow" (click)="scrollTasks('left')" [disabled]="!canScrollLeft">&#9664;</button>
+        <div class="current-tasks" #tasksContainer (scroll)="onTasksScroll()">
+          <div class="task-card" *ngFor="let task of activeTasks" [class.blurred-card]="task.isBlurred">
+            <div class="task-card-header">
+              <h4 style="margin-bottom: 3px;">{{ task.eventName }}</h4>
+              <span class="label" style="color: #777;">{{ task.organizationName }}</span>
+            </div>
+            <div class="task-card-content">
+              <div class="task-info-row" style="width: 110px;">
+                <span class="label">Mjesto:</span>
+                <span class="value">{{ task.location }}</span>
+              </div>
+              <div class="task-info-row" style="align-items: center;">
+                <span class="label">Vrijeme:</span>
+                <span class="value">{{ task.time }}</span>
+              </div>
+              <div class="task-info-row" style="align-items: flex-end ;">
+                <span class="label">Trajanje:</span>
+                <span class="value">{{ task.duration }}</span>
+              </div>
+            </div>
+            <div class="task-card-footer">
+              <div class="task-name-section">
+                <span class="label">Naziv zadatka:</span>
+                <span class="value task-title">{{ task.taskTitle }}</span>
+              </div>
+              <button>Više</button>
+            </div>
           </div>
-          <div class="task-card-content">
-            <div class="task-info-row" style="width: 110px;">
-              <span class="label">Mjesto:</span>
-              <span class="value">{{ task.location }}</span>
+        </div>
+        <button class="scroll-arrow right-arrow" (click)="scrollTasks('right')" [disabled]="!canScrollRight">&#9654;</button>
+      </div>
+    </section>
+
+
+
+    <section>
+      <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Trenutno aktivni događaji</h2>
+      <div class="current-events">
+        <div class="card">
+          <div class="card-header">
+            <div class="date-badge" style="position: relative; z-index: 2;">
+              <span>10</span>
+              <span>MAJ</span>
             </div>
-            <div class="task-info-row" style="align-items: center;">
-              <span class="label">Vrijeme:</span>
-              <span class="value">{{ task.time }}</span>
-            </div>
-            <div class="task-info-row" style="align-items: flex-end ;">
-              <span class="label">Trajanje:</span>
-              <span class="value">{{ task.duration }}</span>
-            </div>
+            <h3 style="position: relative; z-index: 2;">Akcija pošumljavanja</h3>
+            <p style="position: relative; z-index: 2;">Skakavac</p>
           </div>
-          <div class="task-card-footer">
-            <div class="task-name-section">
-              <span class="label">Naziv zadatka:</span>
-              <span class="value task-title">{{ task.taskTitle }}</span>
+          <div class="card-content">
+            <p>⏰ 8:30 - 15:00 &nbsp;&nbsp; | &nbsp;&nbsp; 100 mjesta preostalo</p>
+          </div>
+          <div class="card-footer">
+            <div class="info">
+              <img src="https://shorturl.at/IXOmx" alt="Organizator">
+              <span>Lovačko društvo Sarajevo</span>
             </div>
             <button>Više</button>
           </div>
         </div>
       </div>
-      <button class="scroll-arrow right-arrow" (click)="scrollTasks('right')" [disabled]="!canScrollRight">&#9654;</button>
-    </div>
-  </section>
+    </section>
 
+    <section>
+      <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Prijavljeni događaji</h2>
+      <div class="my-events">
 
-
-  <section>
-    <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Trenutno aktivni događaji</h2>
-    <div class="current-events">
-      <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>10</span>
-            <span>MAJ</span>
+        <div class="card">
+          <div class="card-header" style="background: url(https://www.gcs.ba/images/post-images/zgrada7.png) no-repeat center/cover;">
+            <div class="date-badge" style="position: relative; z-index: 2;">
+              <span>16</span>
+              <span>MAJ</span>
+            </div>
+            <h3 style="position: relative; z-index: 2;">Pomoć starijim osobama</h3>
+            <p style="position: relative; z-index: 2;">Sarajevo</p>
           </div>
-          <h3 style="position: relative; z-index: 2;">Akcija pošumljavanja</h3>
-          <p style="position: relative; z-index: 2;">Skakavac</p>
-        </div>
-        <div class="card-content">
-          <p>⏰ 8:30 - 15:00 &nbsp;&nbsp; | &nbsp;&nbsp; 100 mjesta preostalo</p>
-        </div>
-        <div class="card-footer">
-          <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Lovačko društvo Sarajevo</span>
+          <div class="card-content">
+            <p>⏰ 10:00 - 12:00 &nbsp;&nbsp; | &nbsp;&nbsp; 50 mjesta preostalo</p>
           </div>
-          <button>Više</button>
+          <div class="card-footer">
+            <div class="info">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDcMbHHJ_KgUrfjFob1lNjPR4-_yI0SSoqAw&s" alt="Organizator">
+              <span>Pomozi.ba</span>
+            </div>
+            <button>Više</button>
+          </div>
         </div>
+
+        <div class="card">
+          <div class="card-header" style="background: url(https://storage.radiosarajevo.ba/image/467670/1180x732/demolirani_park_betanija1.jpg) no-repeat center/cover;">
+            <div class="date-badge" style="position: relative; z-index: 2;">
+              <span>20</span>
+              <span>MAJ</span>
+            </div>
+            <h3 style="position: relative; z-index: 2;">Renoviranje igrališta</h3>
+            <p style="position: relative; z-index: 2;">Sarajevo</p>
+          </div>
+          <div class="card-content">
+            <p>⏰ 14:00 - 17:00 &nbsp;&nbsp; | &nbsp;&nbsp; 20 mjesta preostalo</p>
+          </div>
+          <div class="card-footer">
+            <div class="info">
+              <img src="https://yt3.googleusercontent.com/ytc/AIdro_kPsD9ZZp5jy72i_i9sw0ZEuDJOq_E8ioHyjEkDcPbHF6U=s900-c-k-c0x00ffffff-no-rj" alt="Organizator">
+              <span>Rastimo zajedno</span>
+            </div>
+            <button>Više</button>
+          </div>
+        </div>
+
       </div>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Prijavljeni događaji</h2>
-    <div class="my-events">
-
-      <div class="card">
-        <div class="card-header" style="background: url(https://www.gcs.ba/images/post-images/zgrada7.png) no-repeat center/cover;">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>16</span>
-            <span>MAJ</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Pomoć starijim osobama</h3>
-          <p style="position: relative; z-index: 2;">Sarajevo</p>
-        </div>
-        <div class="card-content">
-          <p>⏰ 10:00 - 12:00 &nbsp;&nbsp; | &nbsp;&nbsp; 50 mjesta preostalo</p>
-        </div>
-        <div class="card-footer">
-          <div class="info">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDcMbHHJ_KgUrfjFob1lNjPR4-_yI0SSoqAw&s" alt="Organizator">
-            <span>Pomozi.ba</span>
-          </div>
-          <button>Više</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header" style="background: url(https://storage.radiosarajevo.ba/image/467670/1180x732/demolirani_park_betanija1.jpg) no-repeat center/cover;">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>20</span>
-            <span>MAJ</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Renoviranje igrališta</h3>
-          <p style="position: relative; z-index: 2;">Sarajevo</p>
-        </div>
-        <div class="card-content">
-          <p>⏰ 14:00 - 17:00 &nbsp;&nbsp; | &nbsp;&nbsp; 20 mjesta preostalo</p>
-        </div>
-        <div class="card-footer">
-          <div class="info">
-            <img src="https://yt3.googleusercontent.com/ytc/AIdro_kPsD9ZZp5jy72i_i9sw0ZEuDJOq_E8ioHyjEkDcPbHF6U=s900-c-k-c0x00ffffff-no-rj" alt="Organizator">
-            <span>Rastimo zajedno</span>
-          </div>
-          <button>Više</button>
-        </div>
-      </div>
-
-    </div>
-  </section>
-</div>
+    </section>
+  </div>

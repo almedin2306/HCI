@@ -11,6 +11,8 @@ import {LayoutOrganizerComponent} from './ORGANIZACIJA/layout-organizer/layout-o
 import {OrganizerHomeComponent} from './ORGANIZACIJA/organizer-home.component/organizer-home.component';
 import {LayoutVolunteerComponent} from './VOLONTERI/layout-volunteer/layout-volunteer.component';
 import {VolunteerHomeComponent} from './VOLONTERI/volunteer-home.component/volunteer-home.component';
+import {VolunteerEventsComponent} from './VOLONTERI/volunteer-events/volunteer-events.component';
+import {VolunteerMyEvents} from './VOLONTERI/volunteer-my-events/volunteer-my-events';
 
 export const routes: Routes = [
   {
@@ -45,8 +47,8 @@ export const routes: Routes = [
     children: [ // Routes defined here will load their components INTO LayoutVolunteerComponent's <router-outlet>
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirects default to /home
       { path: 'home', component: VolunteerHomeComponent }, // When /home, HomeComponent loads in router-outlet
-      { path: 'organizations', component: OrganizerHomeComponent }, // When /organizations, OrganizationsComponent loads in router-outlet
-      { path: 'volunteers', component: VolunteersComponent },
+      { path: 'organizations', component: VolunteerEventsComponent}, // When /organizations, OrganizationsComponent loads in router-outlet
+      { path: 'volunteers', component: VolunteerMyEvents },
       { path: 'events', component: EventsComponent },
       { path: 'admin', component: AdminComponent },
       { path: 'settings', component: SettingsComponent },

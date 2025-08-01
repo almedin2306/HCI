@@ -1,0 +1,108 @@
+<div class="container" style="width:1450px;">
+
+  <section>
+    <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Trenutno aktivni događaji</h2>
+    <div class="current-events">
+      <div class="card">
+        <div class="card-header">
+          <div class="date-badge" style="position: relative; z-index: 2;">
+            <span>10</span>
+            <span>MAJ</span>
+          </div>
+          <h3 style="position: relative; z-index: 2;">Akcija pošumljavanja</h3>
+          <p style="position: relative; z-index: 2;">Skakavac</p>
+        </div>
+        <div class="card-content">
+          <p>⏰ 8:30 - 15:00    |    100 mjesta preostalo</p>
+        </div>
+        <div class="card-footer">
+          <div class="info">
+            <img src="https://shorturl.at/IXOmx" alt="Organizator">
+            <span>Lovačko društvo Sarajevo</span>
+          </div>
+          <button>Više</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Prijavljeni događaji</h2>
+    <div class="my-events">
+
+      <div class="card">
+        <div class="card-header" style="background: url(https://www.gcs.ba/images/post-images/zgrada7.png) no-repeat center/cover;">
+          <div class="date-badge" style="position: relative; z-index: 2;">
+            <span>16</span>
+            <span>MAJ</span>
+          </div>
+          <h3 style="position: relative; z-index: 2;">Pomoć starijim osobama</h3>
+          <p style="position: relative; z-index: 2;">Sarajevo</p>
+        </div>
+        <div class="card-content">
+          <p>⏰ 10:00 - 12:00    |    50 mjesta preostalo</p>
+        </div>
+        <div class="card-footer">
+          <div class="info">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDcMbHHJ_KgUrfjFob1lNjPR4-_yI0SSoqAw&s" alt="Organizator">
+            <span>Pomozi.ba</span>
+          </div>
+          <button>Više</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" style="background: url(https://storage.radiosarajevo.ba/image/467670/1180x732/demolirani_park_betanija1.jpg) no-repeat center/cover;">
+          <div class="date-badge" style="position: relative; z-index: 2;">
+            <span>20</span>
+            <span>MAJ</span>
+          </div>
+          <h3 style="position: relative; z-index: 2;">Renoviranje igrališta</h3>
+          <p style="position: relative; z-index: 2;">Sarajevo</p>
+        </div>
+        <div class="card-content">
+          <p>⏰ 14:00 - 17:00    |    20 mjesta preostalo</p>
+        </div>
+        <div class="card-footer">
+          <div class="info">
+            <img src="https://yt3.googleusercontent.com/ytc/AIdro_kPsD9ZZp5jy72i_i9sw0ZEuDJOq_E8ioHyjEkDcPbHF6U=s900-c-k-c0x00ffffff-no-rj" alt="Organizator">
+            <span>Rastimo zajedno</span>
+          </div>
+          <button>Više</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="width:1180px;padding-bottom:30px;">
+    <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Prošli događaji</h2>
+    <div class="scroll-wrapper">
+      <button class="scroll-arrow left-arrow" (click)="scrollPastEvents('left')" [disabled]="!canScrollPastLeft">◀</button>
+      <div class="events-container past-events-container" #pastEventsContainer (scroll)="onPastEventsScroll()">
+        <div class="card" *ngFor="let event of pastEvents">
+          <div class="card-header" [style.background]="'url(' + event.imageUrl + ') no-repeat center/cover;'">
+            <div class="date-badge" style="position: relative; z-index: 2;">
+              <span>{{ event.day }}</span>
+              <span>{{ event.month }}</span>
+            </div>
+            <h3 style="position: relative; z-index: 2;">{{ event.title }}</h3>
+            <p style="position: relative; z-index: 2;">{{ event.location }}</p>
+          </div>
+          <div class="card-content">
+            <p>⏰ {{ event.timeRange }}    |    {{ event.remainingPlaces }}</p>
+          </div>
+          <div class="card-footer">
+            <div class="info">
+              <img [src]="event.organizerLogoUrl" alt="Organizator">
+              <span>{{ event.organizerName }}</span>
+            </div>
+            <button>Više</button>
+          </div>
+        </div>
+      </div>
+      <button class="scroll-arrow right-arrow" (click)="scrollPastEvents('right')" [disabled]="!canScrollPastRight">▶</button>
+    </div>
+  </section>
+
+</div>

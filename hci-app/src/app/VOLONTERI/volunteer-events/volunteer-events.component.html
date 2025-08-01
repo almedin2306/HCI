@@ -1,0 +1,178 @@
+  <div class="search-filter-bar-wrapper">
+    <div class="search-filter-bar">
+      <button class="filter-button">
+        <i class="fas fa-filter"></i> Filter
+      </button>
+      <input
+        type="text"
+        placeholder="Pretražite događaje po nazivu, organizatoru, datumu ili lokaciji..."
+        [(ngModel)]="searchTerm"
+        (input)="performSearch()"
+        class="search-input"
+      >
+    </div>
+  </div>
+
+  <section style="margin-top: 0.5rem;">
+    <div class="section-content-wrapper"> <h2 class="section-title" style="padding-bottom: 5px;">Događaji u vašoj blizini</h2>
+      <div class="scroll-wrapper"> <button class="scroll-arrow left-arrow" (click)="scrollEvents('left')" [disabled]="!canScrollLeft">◀</button>
+        <div class="events-container" #eventsContainer (scroll)="onEventsScroll()" style="padding-top:10px;">
+          <div class="card" *ngFor="let event of eventsYouMightLike" (click)="openEventDetails(event)">
+            <div class="card-header" [style.background]="'url(' + event.imageUrl + ') no-repeat center/cover'">
+              <div class="date-badge">
+                <span>{{ event.day }}</span>
+                <span>{{ event.month }}</span>
+              </div>
+              <h3>{{ event.title }}</h3>
+              <p>{{ event.location }}</p>
+            </div>
+            <div class="card-content">
+              <p>⏰ {{ event.timeRange }} &nbsp;&nbsp; | &nbsp;&nbsp; {{ event.remainingPlaces }}</p>
+            </div>
+            <div class="card-footer">
+              <div class="info">
+                <img [src]="event.organizerLogoUrl" [alt]="event.organizerName">
+                <span>{{ event.organizerName }}</span>
+              </div>
+              <button (click)="$event.stopPropagation()">Više</button>
+            </div>
+          </div>
+        </div>
+        <button class="scroll-arrow right-arrow" (click)="scrollEvents('right')" [disabled]="!canScrollRight">▶</button>
+      </div>
+      <p *ngIf="noEventsYouMightLikeResults && searchTerm !== ''" class="no-events-message" style="padding-right:0;padding-left:0;">Nema događaja koji ispunjavaju kriterije pretrage u ovoj sekciji.</p>
+    </div> </section>
+
+  <section style="margin-top: 2.5rem;">
+    <div class="section-content-wrapper"> <h2 class="section-title" style="padding-bottom: 5px;">Događaji koji bi vam se mogli svidjeti</h2>
+      <div class="scroll-wrapper"> <button class="scroll-arrow left-arrow" (click)="scrollNearbyEvents('left')" [disabled]="!canNearbyScrollLeft">◀</button>
+        <div class="events-container" #nearbyEventsContainer (scroll)="onNearbyEventsScroll()" style="padding-top:10px;">
+          <div class="card" *ngFor="let event of nearbyEvents" (click)="openEventDetails(event)">
+            <div class="card-header" [style.background]="'url(' + event.imageUrl + ') no-repeat center/cover'">
+              <div class="date-badge">
+                <span>{{ event.day }}</span>
+                <span>{{ event.month }}</span>
+              </div>
+              <h3>{{ event.title }}</h3>
+              <p>{{ event.location }}</p>
+            </div>
+            <div class="card-content">
+              <p>⏰ {{ event.timeRange }} &nbsp;&nbsp; | &nbsp;&nbsp; {{ event.remainingPlaces }}</p>
+            </div>
+            <div class="card-footer">
+              <div class="info">
+                <img [src]="event.organizerLogoUrl" [alt]="event.organizerName">
+                <span>{{ event.organizerName }}</span>
+              </div>
+              <button (click)="$event.stopPropagation()">Više</button>
+            </div>
+          </div>
+        </div>
+        <button class="scroll-arrow right-arrow" (click)="scrollNearbyEvents('right')" [disabled]="!canNearbyScrollRight">▶</button>
+      </div>
+      <p *ngIf="noNearbyEventsResults && searchTerm !== ''" class="no-events-message" style="padding-right:0;padding-left:0;">Nema događaja koji ispunjavaju kriterije pretrage u ovoj sekciji.</p>
+    </div> </section>
+
+  <section style="margin-top: 2.5rem; margin-bottom: 2.5rem;">
+    <div class="section-content-wrapper"> <h2 class="section-title" style="padding-bottom: 5px;">Istražite događaje po kategorijama</h2>
+      <div class="category-filter-bar">
+        <button
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === category"
+          (click)="filterEvents(category)">
+          {{ category }}
+        </button>
+      </div>
+
+      <div class="filtered-events-container"> <div class="card" *ngFor="let event of filteredEvents" (click)="openEventDetails(event)">
+        <div class="card-header" [style.background]="'url(' + event.imageUrl + ') no-repeat center/cover'">
+          <div class="date-badge">
+            <span>{{ event.day }}</span>
+            <span>{{ event.month }}</span>
+          </div>
+          <h3>{{ event.title }}</h3>
+          <p>{{ event.location }}</p>
+        </div>
+        <div class="card-content">
+          <p>⏰ {{ event.timeRange }} &nbsp;&nbsp; | &nbsp;&nbsp; {{ event.remainingPlaces }}</p>
+        </div>
+        <div class="card-footer">
+          <div class="info">
+            <img [src]="event.organizerLogoUrl" [alt]="event.organizerName">
+            <span>{{ event.organizerName }}</span>
+          </div>
+          <button (click)="$event.stopPropagation()">Više</button>
+        </div>
+      </div>
+        <p *ngIf="filteredEvents.length === 0" class="no-events-message">
+          {{ searchTerm !== '' ? 'Nema događaja koji ispunjavaju kriterije pretrage u ovoj kategoriji.' : 'Nema dostupnih događaja u ovoj kategoriji.' }}
+        </p>
+      </div>
+    </div> </section>
+
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="event-details-modal" (click)="$event.stopPropagation()">
+      <button class="close-button" (click)="closeModal()">×</button>
+
+      <div class="modal-gallery-container" *ngIf="selectedEvent">
+        <button
+          class="gallery-arrow left-arrow"
+          (click)="prevImage()"
+          [disabled]="currentImageIndex === 0">
+          ‹
+        </button>
+        <img [src]="selectedEvent.imageUrls[currentImageIndex]" alt="Slika događaja">
+        <button
+          class="gallery-arrow right-arrow"
+          (click)="nextImage()"
+          [disabled]="currentImageIndex === (selectedEvent.imageUrls.length || 0) - 1">
+          ›
+        </button>
+      </div>
+      <div class="modal-gallery-container no-image" *ngIf="!selectedEvent || !selectedEvent.imageUrls?.length">
+        <img src="https://via.placeholder.com/600x400?text=Nema+slike+za+doga%C4%91aj" alt="Nema slike">
+      </div>
+
+      <div class="modal-header" style="align-items: center;text-align: center;" >
+        <h2 style="align-items: center;padding-bottom:10px;">{{ selectedEvent?.title }}</h2>
+        <p>Zajedno za prirodu</p>
+      </div>
+
+      <div class="modal-content">
+        <div class="event-info-grid" style="text-align: center ;">
+          <div class="info-item">
+            <label class="info-label">Mjesto događaja</label>
+            <span class="info-value">{{ selectedEvent?.location }}</span>
+          </div>
+          <div class="info-item">
+            <label class="info-label">Datum događaja</label>
+            <span class="info-value">{{ selectedEvent?.fullDate }}</span>
+          </div>
+          <div class="info-item">
+            <label class="info-label">Vrijeme događaja</label>
+            <span class="info-value">{{ selectedEvent?.timeRange }}</span>
+          </div>
+          <div class="info-item">
+            <label class="info-label">Broj volontera</label>
+            <span class="info-value">{{ selectedEvent?.volunteersSignedUp }}/{{ selectedEvent?.volunteersNeeded }}</span>
+          </div>
+        </div>
+
+        <div class="modal-section-title">Opis događaja</div>
+        <p>{{ selectedEvent?.description }}</p>
+
+        <div class="modal-section-title" style="margin-top: 1.5rem;">Vrsta događaja</div>
+        <div class="tags-container">
+          <span *ngFor="let tag of selectedEvent?.tags" class="tag">{{ tag }}</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="apply-button" (click)="applyForEvent()">Prijavi se</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="snackbar-notification" [class.show]="showNotification">
+    {{ notificationMessage }}
+  </div>

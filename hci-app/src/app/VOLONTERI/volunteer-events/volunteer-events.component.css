@@ -1,0 +1,716 @@
+/* Reused general styling for cards from volunteer-home, adjusted for this component */
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.9375rem; /* 15px */
+  color: #555;
+}
+
+/* NEW: Wrapper for consistent content alignment */
+.section-content-wrapper {
+  max-width: 1180px; /* Match the width of search bar and filtered events container */
+  margin: 0 auto; /* Center it */
+  padding: 0 1rem; /* Add some horizontal padding for smaller screens if needed */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* --- Scroll Container & Arrows (Copied and adapted from volunteer-home) --- */
+.scroll-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem; /* 10px gap between arrows and content */
+  width: 100%; /* Make it fill its parent `.section-content-wrapper` */
+  /* REMOVED: The fixed width: 1180px from here */
+}
+
+.scroll-arrow {
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+  font-size: 1.25rem; /* 20px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0; /* Prevent arrows from shrinking */
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.scroll-arrow:hover {
+  background-color: #e55340;
+}
+
+.scroll-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #ccc;
+}
+
+/* --- Events Container (Scrollable) --- */
+.events-container {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent cards from wrapping to the next line */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+  scroll-behavior: smooth; /* Smooth scroll on button click */
+  padding-bottom: 0.625rem; /* Space for scrollbar if present (optional) */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+  column-gap: 1.25rem; /* 20px gap between cards */
+  flex-grow: 1; /* Allow the events container to take available space */
+}
+
+/* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+.events-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Card Styles (Copied and adapted from volunteer-home's .card) --- */
+.card {
+  background-color: #fff;
+  border-radius: 0.9375rem; /* 15px */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 0 4px 6px */
+  overflow: hidden;
+  font-size: 0.875rem; /* 14px */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+
+  /* IMPORTANT: Fixed width for 3 cards within 1180px with arrows and gaps */
+  /* Calculation: (1180px (wrapper) - 80px (arrows) - 40px (2 gaps)) / 3 cards = 353.33px per card */
+  /* 353.33px / 16px/rem = 22.083rem */
+  /* Now, since .scroll-wrapper is 100%, and .section-content-wrapper is 1180px,
+     we need to calculate based on 100% of the .scroll-wrapper (which is 1180px - arrows - gap).
+     If the scroll wrapper is 100% (of 1180px - padding), then it's about 1180px - 2rem padding.
+     So the effective width is still similar for calculation. */
+  flex: 0 0 22.083rem; /* Do not grow, do not shrink, fixed width */
+  width: 23.3rem; /* Adjusted for better fit based on previous calculations */
+  min-width: 23.3rem;
+  max-width: 23.3rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-header {
+  position: relative;
+  height: 9.375rem; /* 150px */
+  background: no-repeat center/cover; /* Background image will be set by Angular binding */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.625rem; /* 10px */
+  z-index: 0;
+}
+
+.card-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  filter: blur(0.250rem);
+  z-index: 1;
+}
+
+.date-badge {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #db7c00;
+  font-weight: bold;
+  border-radius: 0.5rem; /* 8px */
+  padding: 0.3125rem 0.625rem; /* 5px 10px */
+  text-align: center;
+  width: 3.125rem; /* 50px */
+  position: relative;
+  z-index: 2;
+}
+
+.date-badge span {
+  display: block;
+}
+
+.card-header h3 {
+  margin-top: 2rem;
+  margin-bottom: 0;
+  font-size: 1.50rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 2;
+}
+
+.card-header p {
+  margin: 0;
+  font-size: 1rem;
+  text-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 2;
+}
+
+.card-content {
+  padding: 0.9375rem; /* 15px */
+}
+
+.card-content p {
+  margin: 0;
+  font-size: 0.8125rem; /* 13px */
+  color: #777;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem 0.9375rem; /* 10px 15px */
+  background-color: #f9f9f9;
+  border-top: 0.0625rem solid #eee; /* 1px */
+}
+
+.card-footer .info {
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem; /* 5px */
+}
+
+.card-footer img {
+  width: 1.875rem; /* 30px */
+  height: 1.875rem; /* 30px */
+  border-radius: 50%;
+}
+
+.card-footer button {
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem; /* 8px */
+  padding: 0.5rem 0.75rem; /* 8px 12px */
+  cursor: pointer;
+  font-size: 0.875rem; /* 14px */
+  transition: background-color 0.3s;
+}
+
+.card-footer button:hover {
+  background-color: #e55340;
+}
+
+/* --- Media Queries for responsiveness for these specific cards --- */
+@media (max-width: 1200px) { /* Adjust card width if container shrinks below 1180px */
+  /* Adjust calculation for 2 cards per row given 100% width of .scroll-wrapper (which is inside .section-content-wrapper) */
+  .card {
+    flex: 0 0 calc((100% - 1.25rem) / 2); /* (100% - column-gap) / 2 cards */
+    width: calc((100% - 1.25rem) / 2);
+    min-width: calc((100% - 1.25rem) / 2);
+    max-width: calc((100% - 1.25rem) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  .card { /* Adjust card width for smaller screens (e.g., 1 card per row with more padding) */
+    flex: 0 0 calc(100% - 1.25rem); /* Full width minus gap */
+    width: calc(100% - 1.25rem);
+    min-width: calc(100% - 1.25rem);
+    max-width: calc(100% - 1.25rem);
+  }
+}
+
+@media (max-width: 580px) {
+  .scroll-wrapper {
+    width: 100% !important; /* Ensure wrapper uses full width on small screens */
+    padding: 0 0.625rem; /* Small padding so arrows aren't right at the edge */
+    box-sizing: border-box;
+  }
+  .scroll-arrow {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+  .card { /* Slightly smaller cards on very small screens if needed */
+    flex: 0 0 16rem; /* Example fixed width */
+    width: 16rem;
+    min-width: 16rem;
+    max-width: 16rem;
+  }
+}
+
+/* --- NEW STYLES FOR CATEGORY FILTER SECTION --- */
+
+.category-filter-bar {
+  display: flex;
+  flex-wrap: wrap; /* Allow categories to wrap if too many */
+  gap: 0.625rem; /* 10px */
+  margin: 1.25rem auto 1.875rem auto; /* 20px top, 30px bottom, center horizontally */
+  max-width: 1180px; /* Match main container width */
+  justify-content: center; /* Center buttons in the bar */
+  padding: 0 10px; /* Small padding for edges */
+}
+
+.category-filter-bar button {
+  background-color: #f0f0f0;
+  color: #555;
+  border: 1px solid #ddd;
+  border-radius: 1.25rem; /* 20px - more rounded pill shape */
+  padding: 0.625rem 1rem; /* 10px 16px */
+  cursor: pointer;
+  font-size: 0.9375rem; /* 15px */
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  white-space: nowrap; /* Prevent text from wrapping inside button */
+}
+
+.category-filter-bar button:hover {
+  background-color: #e0e0e0;
+}
+
+.category-filter-bar button.active {
+  background-color: #ff6347;
+  color: #fff;
+  border-color: #ff6347;
+  font-weight: bold;
+}
+
+/* --- Filtered Events Container (No Horizontal Scroll) --- */
+.filtered-events-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  column-gap: 1.25rem; /* 20px gap between cards */
+  row-gap: 1.25rem; /* 20px gap between rows */
+  justify-content: flex-start; /* Align cards to the start */
+  /* REMOVED inline styles: width:1180px; margin: 0 auto; - now handled by section-content-wrapper */
+  width: 100%; /* Fill its parent (.section-content-wrapper) */
+  padding-bottom: 0.625rem; /* General padding */
+}
+
+.filtered-events-container .card {
+  /* Recalculate width for 3 cards per row within 100% width of filtered-events-container */
+  flex: 0 0 calc((100% - 2 * 1.25rem) / 3);
+  width: calc((100% - 2 * 1.25rem) / 3);
+  min-width: calc((100% - 2 * 1.25rem) / 3);
+  max-width: calc((100% - 2 * 1.25rem) / 3);
+  margin-bottom: 0; /* No external margin, use row-gap */
+}
+
+.no-events-message {
+  width: 100%; /* It takes the full width of its parent */
+  text-align: center;
+  color: #777;
+  font-size: 1.125rem;
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px dashed #ccc;
+  border-radius: 0.5rem;
+  background-color: #fdfdfd;
+}
+
+/* Responsive adjustments for filtered cards */
+@media (max-width: 1200px) {
+  /* .filtered-events-container width is now handled by .section-content-wrapper */
+  .filtered-events-container .card {
+    flex: 0 0 calc((100% - 1.25rem) / 2); /* 2 cards per row */
+    width: calc((100% - 1.25rem) / 2);
+    min-width: calc((100% - 1.25rem) / 2);
+    max-width: calc((100% - 1.25rem) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  /* .filtered-events-container padding and width are now handled by .section-content-wrapper */
+  .filtered-events-container .card {
+    flex: 0 0 100%; /* 1 card per row */
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .category-filter-bar {
+    margin-left: 0.625rem;
+    margin-right: 0.625rem;
+    justify-content: flex-start; /* Left align buttons if they wrap */
+  }
+}
+
+/* --- NEW GLOBAL SEARCH BAR STYLES --- */
+.search-filter-bar-wrapper {
+
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1.5rem; /* Space before the first event section */
+}
+
+.search-filter-bar {
+  max-width: 1180px; /* Match your main content width */
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between filter button, input, and search button */
+  padding: 0 1rem; /* Internal padding */
+}
+
+.filter-button {
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem; /* 8px */
+  padding: 0.75rem 1.25rem; /* 12px 20px */
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+  white-space: nowrap; /* Prevent text wrapping */
+  transition: background-color 0.3s;
+}
+
+.filter-button:hover {
+  background-color: #e55340;
+}
+
+.search-input {
+  flex-grow: 1; /* Take up all available space */
+  padding: 0.75rem 1rem; /* 12px 16px */
+  border: 1px solid #ccc;
+  border-radius: 0.5rem; /* 8px */
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+  border-color: #ff6347;
+  box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.2);
+}
+
+.search-button {
+  background-color: #4CAF50; /* A different color for search to differentiate */
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem; /* 8px */
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}
+
+/* Font Awesome Icons (if you're using them) */
+.fas {
+  /* You might already have global Font Awesome styles */
+  line-height: 1; /* Ensures icon is centered vertically */
+}
+
+/* Responsive adjustments for search bar */
+@media (max-width: 768px) {
+  .search-filter-bar {
+    flex-wrap: wrap; /* Allow elements to wrap */
+    justify-content: center; /* Center items when wrapped */
+    padding: 0.5rem;
+  }
+  .filter-button, .search-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  .search-input {
+    width: 100%; /* Full width when wrapped */
+    margin-top: 0.5rem; /* Space above input */
+  }
+}
+
+@media (max-width: 480px) {
+  .search-filter-bar button {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.8rem;
+  }
+  .search-input {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ... (postojeci kod) ... */
+
+/* Hover i kursor na karticama */
+.card {
+  /* postojeci stilovi */
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* NOVI Stilovi za pop-up (modal) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.event-details-modal {
+  background-color: #fff;
+  border-radius: 1rem;
+  width: 95%;
+  max-width: 50rem;
+  position: relative;
+  max-height: 95vh;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  font-weight: 300;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-gallery-container {
+  width: 100%;
+  height: 25rem;
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.modal-gallery-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border: none;
+  font-size: 2.5rem;
+  line-height: 1;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 5;
+  transition: background-color 0.3s ease;
+}
+
+.gallery-arrow.left-arrow {
+  left: 1.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.gallery-arrow.right-arrow {
+  right: 1.5rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.gallery-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.gallery-arrow:hover:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-header {
+  text-align: left;
+  padding: 1.5rem 2rem 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+  font-size: 2.2rem;
+  margin: 0;
+  color: #333;
+}
+
+.modal-header p {
+  margin: 0;
+  color: #777;
+  font-size: 1rem;
+  margin-top: 0.2rem;
+}
+
+.modal-content {
+  padding: 1rem 2rem 1.5rem;
+}
+
+.event-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 0.875rem;
+  color: #777;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.modal-section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #555;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-content p {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.tag {
+  background-color: #f0f0f0;
+  color: #555;
+  padding: 0.3rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: default;
+}
+
+.modal-footer {
+  padding: 1.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+.apply-button {
+  background-color: #ff5733;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 2rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.apply-button:hover {
+  background-color: #e55340;
+}
+
+@media (max-width: 768px) {
+  .event-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ... (postojeci kod) ... */
+
+/* NOVI stilovi za snackbar notifikaciju */
+.snackbar-notification {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background-color: #4CAF50; /* Zelena boja za uspjeh */
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s, transform 0.5s, visibility 0.5s;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.snackbar-notification.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
