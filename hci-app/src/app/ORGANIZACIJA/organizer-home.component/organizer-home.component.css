@@ -230,7 +230,9 @@ header .time-date-group h2 {
 
 .create-event-card .plus-icon {
   font-size: 4rem; /* 4em -> 4rem */
-  margin-bottom: 0.625rem; /* 10px -> 0.625rem */
+  margin-bottom: 2rem; /* 10px -> 0.625rem */
+  color: #FF6347 !important;
+
 }
 
 .create-event-card span {

@@ -1,0 +1,132 @@
+/* Stilovi za cijeli dialog box */
+.mat-dialog-container {
+  padding: 0 !important; /* Uklanja padding koji Angular Material standardno dodaje */
+  border-radius: 1rem !important; /* Okrugli rubovi */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  min-width: 840px;
+
+}
+
+/* Stilovi za zaglavlje dijaloga */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.mat-dialog-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.mat-icon-button {
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+}
+
+.mat-icon {
+  font-size: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+/* Stilovi za sadržaj unutar koraka */
+.dialog-content {
+  padding: 1rem 1.5rem;
+}
+
+/* Stilovi za form fieldove (mat-form-field) */
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Stilovi za stepper */
+mat-horizontal-stepper {
+  background-color: #fff;
+}
+
+.mat-step-header {
+  padding: 1.5rem 0;
+}
+
+.mat-stepper-label-active {
+  font-weight: 500;
+  color: #333;
+}
+
+.mat-step-header .mat-step-label {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.mat-step-header .mat-icon {
+  font-size: 1rem;
+}
+
+.mat-step-header .mat-step-icon {
+  background-color: #ddd;
+  color: #fff;
+  border: 2px solid #ddd;
+}
+
+.mat-step-header .mat-step-icon-selected {
+  background-color: #ff6347;
+  border-color: #ff6347;
+}
+
+.mat-step-header .mat-step-icon-state-done {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+/* Stilovi za gumbe */
+.mat-raised-button, .mat-flat-button {
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* Gumb "Dalje" */
+.mat-button[color="primary"] {
+  background-color: #ff6347;
+  color: #fff;
+}
+
+.mat-button[color="primary"]:disabled {
+  background-color: #ff917f;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Gumb "Nazad" */
+.mat-button {
+  background: none;
+  color: #ff6347;
+}
+
+/* Stilovi za zadnji korak */
+.final-step-content {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.final-step-content .success-icon {
+  font-size: 4rem;
+  color: #4CAF50;
+  height: 4rem;
+  width: 4rem;
+  margin-bottom: 1rem;
+}
+
+.final-step-content h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+}

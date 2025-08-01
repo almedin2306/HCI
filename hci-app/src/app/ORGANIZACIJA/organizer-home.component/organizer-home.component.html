@@ -3,75 +3,31 @@
     <div class="weather-info">
       <span class="icon prognoza">☀️</span>
       <div class="time-date-group">
-        <h1 id="current-time">{{ currentTime }}</h1>
-        <h2>Sunčano</h2>
+        <h1 id="current-time">{{ currentTime }}</h1> <h2>Sunčano</h2>
       </div>
     </div>
     <div class="date-info time-date-group">
       <h1>Danas:</h1>
-      <h2 id="current-date">{{ currentDate }}</h2>
-    </div>
+      <h2 id="current-date">{{ currentDate }}</h2> </div>
   </header>
 
   <section>
     <h2 class="section-title">Trenutno aktivni događaji</h2>
     <div class="current-events">
       <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>10</span>
-            <span>DEC</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Akcija pošumljavanja</h3>
-          <p style="position: relative; z-index: 2;">Skakavac</p>
+        <div class="card-header" style="background-image: url('https://images.unsplash.com/photo-1543269826-b51f8a203f7e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"> <div class="date-badge" style="position: relative; z-index: 2;">
+          <span>AUG</span>
+          <span>10</span>
+        </div>
+          <h3 style="position: relative; z-index: 2;">Čišćenje obala rijeke Miljacke</h3>
+          <p style="position: relative; z-index: 2;">Vilsonovo šetalište, Sarajevo</p>
         </div>
         <div class="card-content">
-          <p>⏰ 8:30 - 15:00 &nbsp;&nbsp; | &nbsp;&nbsp; 100 mjesta preostalo</p>
+          <p>⏰ 09:00 - 14:00 &nbsp;&nbsp; | &nbsp;&nbsp; 30 mjesta preostalo</p>
         </div>
         <div class="card-footer">
           <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Naziv organizatora</span>
-          </div>
-          <button>Više</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>15</span>
-            <span>JAN</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Čišćenje rijeke</h3>
-          <p style="position: relative; z-index: 2;">Neretva</p>
-        </div>
-        <div class="card-content">
-          <p>⏰ 9:00 - 16:00 &nbsp;&nbsp; | &nbsp;&nbsp; 50 mjesta preostalo</p>
-        </div>
-        <div class="card-footer">
-          <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Ekološko udruženje</span>
-          </div>
-          <button>Više</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>25</span>
-            <span>JAN</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Kreativna radionica</h3>
-          <p style="position: relative; z-index: 2;">Kulturni centar</p>
-        </div>
-        <div class="card-content">
-          <p>⏰ 10:00 - 14:00 &nbsp;&nbsp; | &nbsp;&nbsp; 15 mjesta preostalo</p>
-        </div>
-        <div class="card-footer">
-          <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Udruženje Mladih</span>
+            <img src="https://via.placeholder.com/30/4CAF50/FFFFFF?text=ZE" alt="Organizator"> <span>Zelena Energija</span>
           </div>
           <button>Više</button>
         </div>
@@ -82,129 +38,121 @@
   <section>
     <h2 class="section-title">Moji događaji</h2>
     <div class="my-events">
-      <div class="create-event-card">
-        <span class="plus-icon">➕</span>
+      <div class="create-event-card" (click)="openCreateEventDialog()"
+           style="cursor: pointer;">
+        <span class="plus-icon">✚</span>
         <span>Kreiraj događaj</span>
       </div>
 
       <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>13</span>
-            <span>DEC</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Moj Događaj 1</h3>
-          <p style="position: relative; z-index: 2;">Lokacija 1</p>
+        <div class="card-header" style="background-image: url('https://images.unsplash.com/photo-1589924510344-9d10e6a39d89?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"> <div class="date-badge" style="position: relative; z-index: 2;">
+          <span>AVG</span>
+          <span>15</span>
+        </div>
+          <h3 style="position: relative; z-index: 2;">Pomozimo napuštenim životinjama</h3>
+          <p style="position: relative; z-index: 2;">Azil "Sretne Šape", Banja Luka</p>
         </div>
         <div class="card-content">
-          <p>⏰ 10:00 - 12:00 &nbsp;&nbsp; | &nbsp;&nbsp; 5 mjesta preostalo</p>
+          <p>⏰ 10:00 - 16:00 &nbsp;&nbsp; | &nbsp;&nbsp; 12 volontera potrebno</p>
         </div>
         <div class="card-footer">
           <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Ja (Organizator)</span>
+            <img src="https://via.placeholder.com/30/FF5733/FFFFFF?text=SS" alt="Organizator"> <span>Udruženje Sretne Šape</span>
           </div>
           <button>Više</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>20</span>
-            <span>DEC</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Moj Događaj 2</h3>
-          <p style="position: relative; z-index: 2;">Lokacija 2</p>
+        <div class="card-header" style="background-image: url('https://images.unsplash.com/photo-1546765874-ce4ddfbf77d4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"> <div class="date-badge" style="position: relative; z-index: 2;">
+          <span>AVG</span>
+          <span>22</span>
+        </div>
+          <h3 style="position: relative; z-index: 2;">Volonterska akcija: Uređenje parka</h3>
+          <p style="position: relative; z-index: 2;">Gradski park, Tuzla</p>
         </div>
         <div class="card-content">
-          <p>⏰ 14:00 - 17:00 &nbsp;&nbsp; | &nbsp;&nbsp; 20 mjesta preostalo</p>
+          <p>⏰ 08:00 - 13:00 &nbsp;&nbsp; | &nbsp;&nbsp; 20 volontera potrebno</p>
         </div>
         <div class="card-footer">
           <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Ja (Organizator)</span>
+            <img src="https://via.placeholder.com/30/2196F3/FFFFFF?text=GP" alt="Organizator"> <span>Gradski Park Tuzla</span>
           </div>
           <button>Više</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>25</span>
-            <span>DEC</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Moj Događaj 3</h3>
-          <p style="position: relative; z-index: 2;">Lokacija 3</p>
+        <div class="card-header" style="background-image: url('https://images.unsplash.com/photo-1532629606161-0b898a39a9c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"> <div class="date-badge" style="position: relative; z-index: 2;">
+          <span>SEP</span>
+          <span>01</span>
+        </div>
+          <h3 style="position: relative; z-index: 2;">Prikupljanje hrane za socijalno ugrožene</h3>
+          <p style="position: relative; z-index: 2;">Centar za socijalni rad, Zenica</p>
         </div>
         <div class="card-content">
-          <p>⏰ 09:00 - 11:00 &nbsp;&nbsp; | &nbsp;&nbsp; 10 mjesta preostalo</p>
+          <p>⏰ 10:00 - 15:00 &nbsp;&nbsp; | &nbsp;&nbsp; Volonteri za sortiranje</p>
         </div>
         <div class="card-footer">
           <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Ja (Organizator)</span>
+            <img src="https://via.placeholder.com/30/FFC107/333333?text=NH" alt="Organizator"> <span>Novi Horizonti</span>
           </div>
           <button>Više</button>
         </div>
       </div>
+
       <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>01</span>
-            <span>JAN</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Moj Događaj 4</h3>
-          <p style="position: relative; z-index: 2;">Lokacija 4</p>
+        <div class="card-header" style="background-image: url('https://images.unsplash.com/photo-1628126325964-b9c402177431?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"> <div class="date-badge" style="position: relative; z-index: 2;">
+          <span>SEP</span>
+          <span>10</span>
+        </div>
+          <h3 style="position: relative; z-index: 2;">Edukativna radionica za djecu s poteškoćama</h3>
+          <p style="position: relative; z-index: 2;">Dnevni centar "Sunce", Mostar</p>
         </div>
         <div class="card-content">
-          <p>⏰ 18:00 - 20:00 &nbsp;&nbsp; | &nbsp;&nbsp; 50 mjesta preostalo</p>
+          <p>⏰ 14:00 - 17:00 &nbsp;&nbsp; | &nbsp;&nbsp; 5 volontera za asistenciju</p>
         </div>
         <div class="card-footer">
           <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Ja (Organizator)</span>
+            <img src="https://via.placeholder.com/30/9C27B0/FFFFFF?text=DC" alt="Organizator"> <span>Dnevni Centar Sunce</span>
           </div>
           <button>Više</button>
         </div>
       </div>
+
       <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>05</span>
-            <span>JAN</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Moj Događaj 5</h3>
-          <p style="position: relative; z-index: 2;">Lokacija 5</p>
+        <div class="card-header" style="background-image: url('https://images.unsplash.com/photo-1549887552-cb42776c5f49?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"> <div class="date-badge" style="position: relative; z-index: 2;">
+          <span>OKT</span>
+          <span>05</span>
+        </div>
+          <h3 style="position: relative; z-index: 2;">Sadnja drveća u gradskom parku</h3>
+          <p style="position: relative; z-index: 2;">Park Mladen Stojanović, Banja Luka</p>
         </div>
         <div class="card-content">
-          <p>⏰ 11:00 - 13:00 &nbsp;&nbsp; | &nbsp;&nbsp; 30 mjesta preostalo</p>
+          <p>⏰ 09:00 - 14:00 &nbsp;&nbsp; | &nbsp;&nbsp; Svi volonteri dobrodošli</p>
         </div>
         <div class="card-footer">
           <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Ja (Organizator)</span>
+            <img src="https://via.placeholder.com/30/00BCD4/FFFFFF?text=GP" alt="Organizator"> <span>Gradsko Zelenilo</span>
           </div>
           <button>Više</button>
         </div>
       </div>
+
       <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>10</span>
-            <span>JAN</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Moj Događaj 6</h3>
-          <p style="position: relative; z-index: 2;">Lokacija 6</p>
+        <div class="card-header" style="background-image: url('https://images.unsplash.com/photo-1599321854407-c87d60503027?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"> <div class="date-badge" style="position: relative; z-index: 2;">
+          <span>NOV</span>
+          <span>01</span>
+        </div>
+          <h3 style="position: relative; z-index: 2;">Distribucija tople odjeće za beskućnike</h3>
+          <p style="position: relative; z-index: 2;">Glavni trg, Sarajevo</p>
         </div>
         <div class="card-content">
-          <p>⏰ 08:00 - 10:00 &nbsp;&nbsp; | &nbsp;&nbsp; 40 mjesta preostalo</p>
+          <p>⏰ 18:00 - 20:00 &nbsp;&nbsp; | &nbsp;&nbsp; Potrebna pomoć pri transportu</p>
         </div>
         <div class="card-footer">
           <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Ja (Organizator)</span>
+            <img src="https://via.placeholder.com/30/795548/FFFFFF?text=PO" alt="Organizator"> <span>Pomoć Običnom Čovjeku</span>
           </div>
           <button>Više</button>
         </div>

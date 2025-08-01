@@ -1,0 +1,105 @@
+<!-- Dialog kontejner s naslovom i gumbom za zatvaranje -->
+<div class="dialog-header">
+  <h2 mat-dialog-title>Kreiraj novi događaj</h2>
+  <button mat-icon-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<!-- Koraci (stepper) za kreiranje događaja -->
+<mat-horizontal-stepper [linear]="true" #stepper>
+
+  <!-- Korak 1: Osnovne informacije -->
+  <mat-step [stepControl]="basicInfoFormGroup">
+    <form [formGroup]="basicInfoFormGroup">
+      <ng-template matStepLabel>Osnovne informacije</ng-template>
+      <div class="dialog-content">
+        <mat-form-field appearance="outline">
+          <mat-label>Naziv događaja</mat-label>
+          <input matInput placeholder="Akcija pošumljavanja" formControlName="naziv">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Datum održavanja</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="datum">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
+
+        <div class="time-picker-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Vrijeme početka</mat-label>
+            <input matInput type="time" formControlName="pocetak">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Vrijeme kraja</mat-label>
+            <input matInput type="time" formControlName="kraj">
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mjesto održavanja</mat-label>
+          <input matInput placeholder="Vilsonovo šetalište, Sarajevo" formControlName="mjesto">
+        </mat-form-field>
+
+
+      </div>
+      <div>
+        <button mat-button matStepperNext color="primary">Dalje</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Korak 2: Detalji -->
+  <mat-step [stepControl]="detailsFormGroup">
+    <form [formGroup]="detailsFormGroup">
+      <ng-template matStepLabel>Detalji</ng-template>
+      <div class="dialog-content">
+        <mat-form-field appearance="outline">
+          <mat-label>Opis događaja</mat-label>
+          <textarea matInput placeholder="Detaljan opis događaja..." formControlName="opis"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Broj volontera</mat-label>
+          <input matInput type="number" placeholder="npr. 15" formControlName="brojVolontera">
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Nazad</button>
+        <button mat-button matStepperNext color="primary">Dalje</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Korak 3: Zadaci -->
+  <mat-step>
+    <ng-template matStepLabel>Zadaci</ng-template>
+    <div class="dialog-content">
+      <p>Ovdje možete dodati zadatke za volontere.</p>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Nazad</button>
+      <button mat-button matStepperNext color="primary">Dalje</button>
+    </div>
+  </mat-step>
+
+  <!-- Korak 4: Pregled i kraj -->
+  <mat-step>
+    <ng-template matStepLabel>Kraj</ng-template>
+    <div class="dialog-content">
+      <div class="final-step-content">
+        <mat-icon class="success-icon">check_circle</mat-icon>
+        <h3>Sve je spremno!</h3>
+        <p>Kliknite "Završi" za kreiranje događaja.</p>
+      </div>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Nazad</button>
+      <button mat-button color="primary" (click)="onNoClick()">Završi</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+

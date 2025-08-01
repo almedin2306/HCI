@@ -30,7 +30,7 @@ export const routes: Routes = [
     component: LayoutOrganizerComponent ,
     children: [ // Routes defined here will load their components INTO LayoutComponent's <router-outlet>
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirects default to /home
-      { path: 'home', component: HomeComponent }, // When /home, HomeComponent loads in router-outlet
+      { path: 'home', component: OrganizerHomeComponent }, // When /home, HomeComponent loads in router-outlet
       { path: 'organizations', component: OrganizerHomeComponent }, // When /organizations, OrganizationsComponent loads in router-outlet
       { path: 'volunteers', component: VolunteersComponent },
       { path: 'events', component: EventsComponent },
