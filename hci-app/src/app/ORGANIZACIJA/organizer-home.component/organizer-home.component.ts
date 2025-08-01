@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Potreban za Angular templejting ako koristite ngIf/ngFor
+import { CommonModule } from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateEventDialogComponent} from '../create-event-dialog.component/create-event-dialog.component'; // Potreban za Angular templejting ako koristite ngIf/ngFor
 
 @Component({
   selector: 'app-organizer-home.component',
@@ -13,7 +15,7 @@ export class OrganizerHomeComponent implements OnInit, OnDestroy {
   currentDate: string = '';
   private clockInterval: any; // Za pohranu reference na setInterval kako bismo ga mogli očistiti
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   // ngOnInit se poziva nakon što Angular inicijalizira view i data-bound svojstva komponente.
   // Ovo je idealno mjesto za inicijalizaciju podataka.
@@ -61,4 +63,16 @@ export class OrganizerHomeComponent implements OnInit, OnDestroy {
   // loadCurrentEvents(): void { /* ... */ }
   // loadMyEvents(): void { /* ... */ }
   // createNewEvent(): void { /* ... */ }
+  openCreateEventDialog(): void {
+    const dialogRef = this.dialog.open(CreateEventDialogComponent, {
+      width: '840px', // Širina dijaloga
+      disableClose: true, // Onemogućava zatvaranje klikom izvan dijaloga
+    });
+
+    // Ovdje se može slušati rezultat nakon zatvaranja dijaloga
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog je zatvoren, rezultat: ', result);
+    });
+  }
+
 }
