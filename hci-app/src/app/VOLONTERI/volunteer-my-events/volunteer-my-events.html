@@ -1,108 +1,271 @@
-<div class="container" style="width:1450px;">
-
-  <section>
-    <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Trenutno aktivni događaji</h2>
-    <div class="current-events">
-      <div class="card">
-        <div class="card-header">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>10</span>
-            <span>MAJ</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Akcija pošumljavanja</h3>
-          <p style="position: relative; z-index: 2;">Skakavac</p>
-        </div>
-        <div class="card-content">
-          <p>⏰ 8:30 - 15:00    |    100 mjesta preostalo</p>
-        </div>
-        <div class="card-footer">
-          <div class="info">
-            <img src="https://shorturl.at/IXOmx" alt="Organizator">
-            <span>Lovačko društvo Sarajevo</span>
-          </div>
-          <button>Više</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Prijavljeni događaji</h2>
-    <div class="my-events">
-
-      <div class="card">
-        <div class="card-header" style="background: url(https://www.gcs.ba/images/post-images/zgrada7.png) no-repeat center/cover;">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>16</span>
-            <span>MAJ</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Pomoć starijim osobama</h3>
-          <p style="position: relative; z-index: 2;">Sarajevo</p>
-        </div>
-        <div class="card-content">
-          <p>⏰ 10:00 - 12:00    |    50 mjesta preostalo</p>
-        </div>
-        <div class="card-footer">
-          <div class="info">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDcMbHHJ_KgUrfjFob1lNjPR4-_yI0SSoqAw&s" alt="Organizator">
-            <span>Pomozi.ba</span>
-          </div>
-          <button>Više</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header" style="background: url(https://storage.radiosarajevo.ba/image/467670/1180x732/demolirani_park_betanija1.jpg) no-repeat center/cover;">
-          <div class="date-badge" style="position: relative; z-index: 2;">
-            <span>20</span>
-            <span>MAJ</span>
-          </div>
-          <h3 style="position: relative; z-index: 2;">Renoviranje igrališta</h3>
-          <p style="position: relative; z-index: 2;">Sarajevo</p>
-        </div>
-        <div class="card-content">
-          <p>⏰ 14:00 - 17:00    |    20 mjesta preostalo</p>
-        </div>
-        <div class="card-footer">
-          <div class="info">
-            <img src="https://yt3.googleusercontent.com/ytc/AIdro_kPsD9ZZp5jy72i_i9sw0ZEuDJOq_E8ioHyjEkDcPbHF6U=s900-c-k-c0x00ffffff-no-rj" alt="Organizator">
-            <span>Rastimo zajedno</span>
-          </div>
-          <button>Više</button>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section style="width:1180px;padding-bottom:30px;">
-    <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Prošli događaji</h2>
-    <div class="scroll-wrapper">
-      <button class="scroll-arrow left-arrow" (click)="scrollPastEvents('left')" [disabled]="!canScrollPastLeft">◀</button>
-      <div class="events-container past-events-container" #pastEventsContainer (scroll)="onPastEventsScroll()">
-        <div class="card" *ngFor="let event of pastEvents">
-          <div class="card-header" [style.background]="'url(' + event.imageUrl + ') no-repeat center/cover;'">
-            <div class="date-badge" style="position: relative; z-index: 2;">
-              <span>{{ event.day }}</span>
-              <span>{{ event.month }}</span>
+    <div class="container" style="width:1450px;">
+      <ng-container *ngIf="!showDetailsView">
+        <section>
+          <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Trenutno aktivni događaji</h2>
+          <div class="current-events">
+            <div class="card" *ngIf="currentActiveEvent" (click)="openEventDetails(currentActiveEvent)">
+              <div class="card-header" [style.background]="'url(' + currentActiveEvent.imageUrl + ') no-repeat center/cover;'">
+                <div class="date-badge" style="position: relative; z-index: 2;">
+                  <span>{{ currentActiveEvent.day }}</span>
+                  <span>{{ currentActiveEvent.month }}</span>
+                </div>
+                <h3 style="position: relative; z-index: 2;">{{ currentActiveEvent.title }}</h3>
+                <p style="position: relative; z-index: 2;">{{ currentActiveEvent.location }}</p>
+              </div>
+              <div class="card-content">
+                <p>⏰ {{ currentActiveEvent.timeRange }}    |    {{ currentActiveEvent.remainingPlaces }}</p>
+              </div>
+              <div class="card-footer">
+                <div class="info">
+                  <img [src]="currentActiveEvent.organizerLogoUrl" alt="Organizator">
+                  <span>{{ currentActiveEvent.organizerName }}</span>
+                </div>
+                <button>Više</button>
+              </div>
             </div>
-            <h3 style="position: relative; z-index: 2;">{{ event.title }}</h3>
-            <p style="position: relative; z-index: 2;">{{ event.location }}</p>
           </div>
-          <div class="card-content">
-            <p>⏰ {{ event.timeRange }}    |    {{ event.remainingPlaces }}</p>
-          </div>
-          <div class="card-footer">
-            <div class="info">
-              <img [src]="event.organizerLogoUrl" alt="Organizator">
-              <span>{{ event.organizerName }}</span>
+        </section>
+
+        <section>
+          <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Prijavljeni događaji</h2>
+          <div class="my-events">
+            <div class="card" *ngFor="let event of myEvents" (click)="openEventDetails(event)">
+              <div class="card-header" [style.background]="'url(' + event.imageUrl + ') no-repeat center/cover;'">
+                <div class="date-badge" style="position: relative; z-index: 2;">
+                  <span>{{ event.day }}</span>
+                  <span>{{ event.month }}</span>
+                </div>
+                <h3 style="position: relative; z-index: 2;">{{ event.title }}</h3>
+                <p style="position: relative; z-index: 2;">{{ event.location }}</p>
+              </div>
+              <div class="card-content">
+                <p>⏰ {{ event.timeRange }}    |    {{ event.remainingPlaces }}</p>
+              </div>
+              <div class="card-footer">
+                <div class="info">
+                  <img [src]="event.organizerLogoUrl" alt="Organizator">
+                  <span>{{ event.organizerName }}</span>
+                </div>
+                <button>Više</button>
+              </div>
             </div>
-            <button>Više</button>
+          </div>
+        </section>
+
+        <section style="width:1180px;padding-bottom:30px;">
+          <h2 class="section-title" style="margin-top:0; padding-top:0; padding-bottom: 5px;">Prošli događaji</h2>
+            <div class="events-container past-events-container">
+              <div class="card" *ngFor="let event of pastEvents" (click)="openEventDetails(event)">
+                <div class="card-header" [style.background]="'url(' + event.imageUrl + ') no-repeat center/cover;'">
+                  <div class="date-badge" style="position: relative; z-index: 2;">
+                    <span>{{ event.day }}</span>
+                    <span>{{ event.month }}</span>
+                  </div>
+                  <h3 style="position: relative; z-index: 2;">{{ event.title }}</h3>
+                  <p style="position: relative; z-index: 2;">{{ event.location }}</p>
+                </div>
+                <div class="card-content">
+                  <p>⏰ {{ event.timeRange }}    |    {{ event.remainingPlaces }}</p>
+                </div>
+                <div class="card-footer">
+                  <div class="info">
+                    <img [src]="event.organizerLogoUrl" alt="Organizator">
+                    <span>{{ event.organizerName }}</span>
+                  </div>
+                  <button>Više</button>
+                </div>
+              </div>
+            </div>
+
+        </section>
+      </ng-container>
+
+      <div class="event-details-view" *ngIf="showDetailsView && selectedEvent" style="width:1150px;">
+        <div class="details-header">
+          <button class="back-button" (click)="closeDetailsView()">← Nazad</button>
+          <h2 class="details-title" style="margin-bottom: 10px;">{{ selectedEvent.title }}</h2>
+          <p class="details-subtitle">{{ selectedEvent.organizerName }} | {{ selectedEvent.fullDate }} | {{ selectedEvent.timeRange }}</p>
+        </div>
+
+        <div class="details-tabs" style="justify-content: left;">
+          <div class="tab" [class.active-tab]="activeTab === 'sve'" (click)="activeTab = 'sve'">Sve</div>
+          <div class="tab" [class.active-tab]="activeTab === 'zadaci'" (click)="activeTab = 'zadaci'">Zadaci</div>
+        </div>
+
+        <div class="tab-content sve-tab" *ngIf="activeTab === 'sve'">
+          <div style="display: flex;">
+            <div style="width: 64%">
+              <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                <div class="stat-card" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); padding-top:0;padding-bottom:0; display: flex; flex-direction: column; justify-content: center; min-height: 120px; background-color: #f7f3ed;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; padding-left: 10px;">
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                      <p class="stat-label" style="font-size: 16px; color: #666; margin-bottom: 8px;">Ukupno prijavljenih volontera</p>
+                      <p class="stat-value" style="font-size: 36px; padding-top: 20px; font-weight: 600; color: #f97828;">{{ selectedEvent.volunteersSignedUp }}</p>
+                    </div>
+                    <div style="font-size: 48px; width: 48px; height: 48px; color: rgba(249, 120, 40, 0.5); align-self: flex-end; transform: translateY(-5px);">
+                      <mat-icon>group</mat-icon>
+                    </div>
+                  </div>
+                </div>
+                <div class="stat-card" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); padding-top:0;padding-bottom:0; display: flex; flex-direction: column; justify-content: center; min-height: 120px; background-color: #f7f3ed;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; padding-left: 10px;">
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                      <p class="stat-label" style="font-size: 16px; color: #666; margin-bottom: 8px;">Prisutnih volontera</p>
+                      <p class="stat-value" style="font-size: 36px; padding-top: 20px; font-weight: 600; color: #f97828;">57</p>
+                    </div>
+                    <div style="font-size: 48px; width: 48px; height: 48px; color: rgba(249, 120, 40, 0.5); align-self: flex-end; transform: translateY(-5px);">
+                      <mat-icon>how_to_reg</mat-icon>
+                    </div>
+                  </div>
+                </div>
+                <div class="stat-card" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); padding-top:0;padding-bottom:0; display: flex; flex-direction: column; justify-content: center; min-height: 120px; background-color: #f7f3ed;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; padding-left: 10px;">
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                      <p class="stat-label" style="font-size: 16px; color: #666; margin-bottom: 8px;">Ukupan broj zadataka</p>
+                      <p class="stat-value" style="font-size: 36px; padding-top: 20px; font-weight: 600; color: #f97828;">{{ allTasks.length }}</p>
+                    </div>
+                    <div style="font-size: 48px; width: 48px; height: 48px; color: rgba(249, 120, 40, 0.5); align-self: flex-end; transform: translateY(-5px);">
+                      <mat-icon>task</mat-icon>
+                    </div>
+                  </div>
+                </div>
+                <div class="stat-card" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); padding-top:0;padding-bottom:0; display: flex; flex-direction: column; justify-content: center; min-height: 120px; background-color: #f7f3ed;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; padding-left: 10px;">
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                      <p class="stat-label" style="font-size: 16px; color: #666; margin-bottom: 8px;">Preostalih zadataka</p>
+                      <p class="stat-value" style="font-size: 36px; padding-top: 20px; font-weight: 600; color: #f97828;">{{ activeTasksForEvent.length }}</p>
+                    </div>
+                    <div style="font-size: 48px; width: 48px; height: 48px; color: rgba(249, 120, 40, 0.5); align-self: flex-end; transform: translateY(-5px);">
+                      <mat-icon>pending_actions</mat-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="activity-chart-wrapper" style="padding-top:18px;padding-bottom: 35px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); background-color: #f7f3ed;">
+                <h3 class="chart-title">Aktivnost volontera <span class="chart-legend"><span></span>Broj aktivnih volontera po satima</span></h3>
+                <canvas #activityChart></canvas>
+              </div>
+            </div>
+
+            <div class="chat-container" style="width: 33%;margin-left:3%">
+              <div class="chat-messages" #chatMessages>
+                <div class="message received">
+                  <img src="https://shorturl.at/IXOmx" alt="User" class="avatar" style="transform: translateY(15px); ">
+                  <div class="message-content">
+                    <p class="sender-name">Lovačko društvo, Organizator</p>
+                    <p>Zdravo, treba li vam šta dodatno pojasniti?</p>
+                  </div>
+                </div>
+                <div class="message received">
+                  <img src="https://ui-avatars.com/api/?name=Alma+S.&background=random" alt="User" class="avatar" style="transform: translateY(15px); ">
+                  <div class="message-content">
+                    <p class="sender-name">Alma Subašić, Zadatak 2</p>
+                    <p>Gdje trebamo ostaviti ove sadnice?</p>
+                  </div>
+                </div>
+                <div class="message received">
+                  <img src="https://shorturl.at/IXOmx" alt="User" class="avatar" style="transform: translateY(15px); ">
+                  <div class="message-content">
+                    <p class="sender-name">Lovačko društvo, Organizator</p>
+                    <p>Unutar skladišta se obratite Tariku, on će vas uputiti dalje.</p>
+                  </div>
+                </div>
+                <div class="message received">
+                  <img src="https://ui-avatars.com/api/?name=Alma+S.&background=random" alt="User" class="avatar" style="transform: translateY(15px); ">
+                  <div class="message-content">
+                    <p class="sender-name">Alma Subašić, Zadatak 2</p>
+                    <p>Hvala!</p>
+                  </div>
+                </div>
+                <div *ngFor="let message of messages" class="message sent">
+                  <div class="message-content">
+                    <p>{{ message.content }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat-input-area">
+                <input type="text" placeholder="Odgovori..." [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
+                <button (click)="sendMessage()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <button class="scroll-arrow right-arrow" (click)="scrollPastEvents('right')" [disabled]="!canScrollPastRight">▶</button>
-    </div>
-  </section>
 
-</div>
+        <div class="tab-content zadaci-tab" *ngIf="activeTab === 'zadaci'" style="padding-top:0;">
+
+          <section>
+            <h2 class="section-title" style="margin-top: 0  ; padding-bottom: 5px;">Moji zadaci</h2>
+            <div class="tasks-grid" style="padding-bottom: 15px;">
+              <div class="task-card" *ngFor="let task of allTasks.slice(1, 2)">
+                <div class="task-card-header">
+                  <h4>{{ task.organizationName }}</h4>
+                </div>
+                <div class="task-card-content">
+                  <div class="task-info-row">
+                    <span class="label">Mjesto</span>
+                    <span class="value">{{ task.location }}</span>
+                  </div>
+                  <div class="task-info-row">
+                    <span class="label">Vrijeme</span>
+                    <span class="value">{{ task.time }}</span>
+                  </div>
+                  <div class="task-info-row">
+                    <span class="label">Trajanje</span>
+                    <span class="value">{{ task.duration }}</span>
+                  </div>
+                </div>
+                <div class="task-card-footer">
+                  <div class="task-name-section">
+                    <span class="label">Naziv zadatka</span>
+                    <span class="task-title">{{ task.taskTitle }}</span>
+                  </div>
+                  <button>Više</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="section-title" style=" padding-bottom: 5px;">Preostali zadaci</h2>
+            <div class="tasks-grid" style="padding-bottom: 15px;">
+              <div class="task-card" *ngFor="let task of allTasks">
+                <div class="task-card-header">
+                  <h4>{{ task.organizationName }}</h4>
+                </div>
+                <div class="task-card-content">
+                  <div class="task-info-row">
+                    <span class="label">Mjesto</span>
+                    <span class="value">{{ task.location }}</span>
+                  </div>
+                  <div class="task-info-row">
+                    <span class="label">Vrijeme</span>
+                    <span class="value">{{ task.time }}</span>
+                  </div>
+                  <div class="task-info-row">
+                    <span class="label">Trajanje</span>
+                    <span class="value">{{ task.duration }}</span>
+                  </div>
+                </div>
+                <div class="task-card-footer">
+                  <div class="task-name-section">
+                    <span class="label">Naziv zadatka</span>
+                    <span class="task-title">{{ task.taskTitle }}</span>
+                  </div>
+                  <button>Više</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="section-title" style=" padding-bottom: 5px;">Završeni zadaci</h2>
+            <p   class="no-events-message" style="padding-right:0;padding-left:0;">Trenutno nema završenih zadataka.</p>
+          </section>
+
+        </div>
+
+
+      </div>
+    </div>

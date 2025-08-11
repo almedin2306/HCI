@@ -549,10 +549,10 @@ header .time-date-group h2 {
 
 /* Adjust card sizing for horizontal scrolling containers */
 .past-events-container .card {
-  flex: 0 0 23.3rem; /* Same fixed width as in volunteer-events */
-  width: 23.3rem;
-  min-width: 23.3rem;
-  max-width: 23.3rem;
+  flex: 0 0 27rem; /* Same fixed width as in volunteer-events */
+  width: 27rem;
+  min-width: 27rem;
+  max-width: 27rem;
 }
 
 /* Re-apply the media queries to ensure the new section is responsive */
@@ -584,3 +584,377 @@ header .time-date-group h2 {
 }
 
 /* ... (ostatak vašeg CSS koda) ... */
+
+
+
+
+/* ... (postojeci CSS kod) ... */
+
+/* --- NOVI STILOVI ZA DETALJNI PRIKAZ DOGAĐAJA --- */
+.event-details-view {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+}
+
+.details-header {
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  border: none;
+  color: #ff6347;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.details-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #333;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.details-subtitle {
+  font-size: 1rem;
+  color: #777;
+  text-align: center;
+  margin: 0;
+}
+
+.details-tabs {
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #777;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.tab:hover {
+  color: #ff6347;
+}
+
+.tab.active-tab {
+  color: #ff6347;
+  border-bottom: 2px solid #ff6347;
+}
+
+.tab-content {
+  padding-top: 1rem;
+}
+
+/* --- Stilovi za tab "Sve" --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: #f7f3ed;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ff6347;
+  margin: 0;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+.activity-chat-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.activity-chart-wrapper {
+  background-color: #f7f3ed;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  max-height: 300px; /* Postavljamo maksimalnu visinu /
+overflow: hidden; / Sakrivamo sve što prelazi max-height */
+}
+
+.activity-chart-wrapper canvas {
+  height: 100% !important; /* Osiguravamo da canvas popunjava wrapper */
+}
+
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.chart-legend {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #777;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+.chart-legend span {
+  width: 1rem;
+  height: 0.5rem;
+  background-color: #ff6347;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f3ed;
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.chat-header {
+  padding: 1rem;
+  background-color: #fff;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  max-width: 85%;
+}
+
+.message.received {
+  align-self: flex-start;
+}
+
+.message.sent {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.message-content {
+  background-color: #e6e6e6;
+  padding: 0.75rem 1rem;
+  border-radius: 1.25rem;
+  position: relative;
+}
+
+.message.sent .message-content {
+  background-color: #ff6347;
+  color: white;
+  border-bottom-right-radius: 0;
+}
+
+.message.received .message-content {
+  background-color: #fff;
+  border-bottom-left-radius: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.message-content p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.sender-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #777;
+  margin-bottom: 0.25rem;
+}
+
+.timestamp {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: right;
+  margin-top: 0.25rem;
+}
+
+.chat-input-area {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid #eee;
+  background-color: #fff;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.chat-input-area input {
+  flex-grow: 1;
+  border: none;
+  background: none;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.chat-input-area input:focus {
+  outline: none;
+}
+
+.chat-input-area button {
+  background-color: #ff6347;
+  border: none;
+  border-radius: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.chat-input-area button svg {
+  color: #fff;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.chat-input-area button:hover {
+  background-color: #e55340;
+}
+
+
+/* --- Stilovi za tab "Zadaci" --- */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Prilagodbe za task-card unutar detaljnog prikaza */
+.tasks-grid .task-card {
+  width: auto;
+  min-width: auto;
+  max-width: none;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tasks-grid .task-card-content {
+  flex-direction: row; /* Zadrži redove za "Mjesto", "Vrijeme", "Trajanje" */
+  flex-wrap: wrap; /* Omogući prelamanje ako nema mjesta */
+}
+
+/* Media Queries za responsive dizajn detaljnog prikaza */
+@media (max-width: 1200px) {
+  .activity-chat-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .details-title {
+    font-size: 2rem;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .tasks-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .details-title {
+    font-size: 1.5rem;
+  }
+  .details-tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+  .tab {
+    padding: 0.5rem 1rem;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mat-icon {
+  height: 40px;
+  width: 40px;
+
+}
+.material-icons {
+  font-size: 40px;
+}
+
+.no-events-message {
+  width: 100%; /* It takes the full width of its parent */
+  text-align: center;
+  color: #777;
+  font-size: 1.125rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px dashed #ccc;
+  border-radius: 0.5rem;
+  background-color: #fdfdfd;
+  margin-bottom: 10px;
+}
+
+
+
+
+
